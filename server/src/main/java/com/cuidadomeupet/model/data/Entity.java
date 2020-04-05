@@ -1,6 +1,7 @@
 package com.cuidadomeupet.model.data;
 
 public class Entity {
+
     private int id;
     private int revision;
 
