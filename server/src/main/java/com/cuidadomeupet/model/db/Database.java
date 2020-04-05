@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cuidadomeupet.model.db.daos.DAO;
+import com.cuidadomeupet.model.db.fetchers.Fetcher;
 
 import org.eclipse.microprofile.config.ConfigProvider;
 
@@ -59,6 +59,15 @@ public class Database {
         return connection.prepareStatement(sql);
     }
 
+    
+    public void executeCommand(PreparedStatement ps) throws Exception {
+
+        if (ps != null) {
+
+            ps.execute();
+        }
+    }
+
     public void executeCommand(String sql) throws Exception {
 
         if (connection != null) {
@@ -70,7 +79,7 @@ public class Database {
         }
     }
 
-    public <T> T fetchOne(String sql, DAO<T> dao) throws Exception {
+    public <T> T fetchOne(String sql, Fetcher<T> fetcher) throws Exception {
 
         statement = connection.createStatement();
 
@@ -79,7 +88,7 @@ public class Database {
         T t = null;
 
         if (resultSet.next()) {
-            t = dao.fetch(resultSet);
+            t = fetcher.fetch(resultSet);
         }
 
         resultSet.close();
@@ -89,7 +98,7 @@ public class Database {
         return t;
     }
 
-    public <T> List<T> fetchAll(String sql, DAO<T> fetcher) throws Exception {
+    public <T> List<T> fetchAll(String sql, Fetcher<T> fetcher) throws Exception {
 
         statement = connection.createStatement();
 
@@ -108,14 +117,13 @@ public class Database {
         return list;
     }
 
-    public int queryInt(PreparedStatement ps) throws Exception
-    {
+    public int queryInt(PreparedStatement ps) throws Exception {
+
         ResultSet resultSet = ps.executeQuery();
 
         int result = 0;
 
-        if (resultSet.next())
-        {
+        if (resultSet.next()) {
             result = resultSet.getInt(1);
         }
 
