@@ -1,4 +1,4 @@
-package com.cuidadomeupet.model.db.fetchers;
+package com.cuidadomeupet.db.fetchers;
 
 import java.sql.ResultSet;
 

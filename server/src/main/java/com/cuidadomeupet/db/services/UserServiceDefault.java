@@ -1,28 +1,20 @@
-package com.cuidadomeupet.model.db.services;
+package com.cuidadomeupet.db.services;
 
 import java.util.List;
 
-import com.cuidadomeupet.model.data.Entity;
-import com.cuidadomeupet.model.data.User;
-import com.cuidadomeupet.model.db.Database;
-import com.cuidadomeupet.model.db.daos.UserDAO;
+import javax.enterprise.context.ApplicationScoped;
 
-public class UserService {
-    private static UserService defaultInstance;
+import com.cuidadomeupet.model.Entity;
+import com.cuidadomeupet.model.User;
+import com.cuidadomeupet.db.Database;
+import com.cuidadomeupet.db.daos.UserDAO;
 
-    public static UserService getInstance() {
-        if (defaultInstance == null) {
-            defaultInstance = new UserService();
-        }
-
-        return defaultInstance;
-    }
-
+@ApplicationScoped
+public class UserServiceDefault implements UserService {
+ 
     private UserDAO dao = new UserDAO();
 
-    private UserService() {
-    }
-
+    @Override
     public void addUser(User user) throws Exception {
 
         Database db = Database.getInstance();
@@ -34,6 +26,7 @@ public class UserService {
         }
     }
 
+    @Override
     public void updateUser(User user) throws Exception {
 
         Database db = Database.getInstance();
@@ -45,6 +38,7 @@ public class UserService {
         }
     }
 
+    @Override
     public void deleteUser(User user) throws Exception {
 
         Database db = Database.getInstance();
@@ -56,6 +50,7 @@ public class UserService {
         }
     }
 
+    @Override
     public User getUser(Entity entity) throws Exception {
 
         Database db = Database.getInstance();
@@ -67,6 +62,7 @@ public class UserService {
         }
     }
 
+    @Override
     public List<User> getUsers() throws Exception {
 
         Database db = Database.getInstance();

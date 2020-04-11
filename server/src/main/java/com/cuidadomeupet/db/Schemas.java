@@ -1,8 +1,8 @@
-package com.cuidadomeupet.model.db;
+package com.cuidadomeupet.db;
 
-import com.cuidadomeupet.model.data.User;
-import com.cuidadomeupet.model.db.fetchers.Fetcher;
-import com.cuidadomeupet.model.db.fetchers.UserFetcher;
+import com.cuidadomeupet.model.User;
+import com.cuidadomeupet.db.fetchers.Fetcher;
+import com.cuidadomeupet.db.fetchers.UserFetcher;
 
 public class Schemas {
 

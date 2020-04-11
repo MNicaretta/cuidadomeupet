@@ -1,4 +1,4 @@
-package com.cuidadomeupet.model.data;
+package com.cuidadomeupet.model;
 
 public class Entity {
 

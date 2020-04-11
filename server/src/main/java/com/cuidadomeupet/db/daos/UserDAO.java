@@ -1,12 +1,12 @@
-package com.cuidadomeupet.model.db.daos;
+package com.cuidadomeupet.db.daos;
 
 import java.sql.PreparedStatement;
 import java.util.List;
 
-import com.cuidadomeupet.model.data.Entity;
-import com.cuidadomeupet.model.data.User;
-import com.cuidadomeupet.model.db.Database;
-import com.cuidadomeupet.model.db.Schemas.Users;
+import com.cuidadomeupet.model.Entity;
+import com.cuidadomeupet.model.User;
+import com.cuidadomeupet.db.Database;
+import com.cuidadomeupet.db.Schemas.Users;
 
 public class UserDAO {
 
