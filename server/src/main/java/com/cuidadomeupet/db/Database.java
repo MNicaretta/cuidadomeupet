@@ -1,4 +1,4 @@
-package com.cuidadomeupet.model.db;
+package com.cuidadomeupet.db;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cuidadomeupet.model.db.fetchers.Fetcher;
+import com.cuidadomeupet.db.fetchers.Fetcher;
 
 import org.eclipse.microprofile.config.ConfigProvider;
 

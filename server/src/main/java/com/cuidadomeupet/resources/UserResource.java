@@ -3,6 +3,7 @@ package com.cuidadomeupet.resources;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,10 +16,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.cuidadomeupet.model.data.Entity;
-import com.cuidadomeupet.model.data.User;
-import com.cuidadomeupet.model.db.services.UserService;
-import com.google.gson.Gson;
+import com.cuidadomeupet.model.Entity;
+import com.cuidadomeupet.model.User;
+import com.cuidadomeupet.db.services.UserService;
 
 @ApplicationScoped
 @Path("users")
@@ -26,30 +26,27 @@ import com.google.gson.Gson;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
 
-    private Gson gson = new Gson();
+    @Inject
+    UserService service;
 
     @POST
-    public Response addUser(String json) throws Exception {
+    public Response addUser(User user) throws Exception {
 
-        User user = gson.fromJson(json, User.class);
+        service.addUser(user);
 
-        UserService.getInstance().addUser(user);
-
-        return Response.status(200).entity(gson.toJson(user)).build();
+        return Response.status(200).entity(user).build();
     }
 
     @PUT
     @Path("{id}/{revision}")
-    public Response updateUser(@PathParam("id") Integer id, @PathParam("revision") Integer revision, String json) throws Exception {
-
-        User user = gson.fromJson(json, User.class);
+    public Response updateUser(@PathParam("id") Integer id, @PathParam("revision") Integer revision, User user) throws Exception {
 
         user.setId(id);
         user.setRevision(revision);
 
-        UserService.getInstance().updateUser(user);
+        service.updateUser(user);
 
-        return Response.status(200).entity(gson.toJson(user)).build();
+        return Response.status(200).entity(user).build();
     }
 
     @DELETE
@@ -60,11 +57,11 @@ public class UserResource {
         entity.setId(id);
         entity.setRevision(revision);
 
-        User user = UserService.getInstance().getUser(entity);
+        User user = service.getUser(entity);
 
-        UserService.getInstance().deleteUser(user);
+        service.deleteUser(user);
 
-        return Response.status(200).entity(gson.toJson(user)).build();
+        return Response.status(200).entity(user).build();
     }
 
     @GET
@@ -75,16 +72,16 @@ public class UserResource {
         entity.setId(id);
         entity.setRevision(revision);
 
-        User user = UserService.getInstance().getUser(entity);
+        User user = service.getUser(entity);
 
-        return Response.status(200).entity(gson.toJson(user)).build();
+        return Response.status(200).entity(user).build();
     }
 
     @GET
     public Response getUsers() throws Exception {
 
-        List<User> users = UserService.getInstance().getUsers();
+        List<User> users = service.getUsers();
 
-        return Response.status(Status.OK).entity(gson.toJson(users)).build();
+        return Response.status(Status.OK).entity(users).build();
     }
 }

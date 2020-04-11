@@ -1,8 +1,8 @@
-package com.cuidadomeupet.model.db.fetchers;
+package com.cuidadomeupet.db.fetchers;
 
 import java.sql.ResultSet;
 
-import com.cuidadomeupet.model.data.User;
+import com.cuidadomeupet.model.User;
 
 public class UserFetcher implements Fetcher<User> {
 
