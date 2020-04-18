@@ -1,0 +1,26 @@
+<!-- Default form register -->
+<form class="text-center border border-light p-5" [formGroup]="formGroup" (ngSubmit)="signup()">
+
+  <p class="h4 mb-4">Sign up</p>
+
+  <!-- Name -->
+  <input type="text" formControlName="name" class="form-control mb-4" placeholder="Nome">
+
+  <!-- E-mail -->
+  <input type="email" formControlName="email" class="form-control mb-4" placeholder="E-mail">
+
+  <!-- Password -->
+  <input type="password" formControlName="password" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+  <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+      No mínimo 8 caracteres e 1 dígito
+  </small>
+
+  <!-- Sign up button -->
+  <button class="btn btn-info my-4 btn-block" type="submit">Sign up</button>
+
+  <!-- Terms of service -->
+  <p>By clicking
+      <em>Sign up</em> you agree to our
+      <a href="" target="_blank">terms of service</a>
+
+</form>
