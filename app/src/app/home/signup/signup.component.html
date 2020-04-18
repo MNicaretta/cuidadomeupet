@@ -1,26 +1,52 @@
 <!-- Default form register -->
-<form class="text-center border border-light p-5" [formGroup]="formGroup" (ngSubmit)="signup()">
+<form class="text-center border border-light p-5" [formGroup]="signupForm" (ngSubmit)="signup()">
 
-  <p class="h4 mb-4">Sign up</p>
+  <p class="h4 mb-4">Cadastro</p>
 
   <!-- Name -->
-  <input type="text" formControlName="name" class="form-control mb-4" placeholder="Nome">
+  <input type="text" formControlName="name" class="form-control" placeholder="Nome">
+  <app-formerror
+    *ngIf="signupForm.get('name').errors?.required"
+    text="Este campo é obrigatório">
+  </app-formerror>
 
   <!-- E-mail -->
-  <input type="email" formControlName="email" class="form-control mb-4" placeholder="E-mail">
+  <input type="email" formControlName="email" class="form-control mt-4" placeholder="E-mail">
+  <app-formerror
+    *ngIf="signupForm.get('email').errors?.required"
+    text="Este campo é obrigatório">
+  </app-formerror>
+  <app-formerror
+    *ngIf="signupForm.get('email').errors?.email"
+    text="O e-mail informado não é válido">
+  </app-formerror>
 
   <!-- Password -->
-  <input type="password" formControlName="password" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
-  <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-      No mínimo 8 caracteres e 1 dígito
-  </small>
+  <input type="password" formControlName="password" class="form-control mt-4" placeholder="Password">
+  <app-formerror
+    *ngIf="signupForm.get('password').errors?.required"
+    text="Este campo é obrigatório">
+  </app-formerror>
+  <app-formerror
+    *ngIf="signupForm.get('password').errors?.minlength"
+    text="Tamanho mínimo é de 8 caracteres">
+  </app-formerror>
+  <app-formerror
+    *ngIf="signupForm.get('password').errors?.maxlength"
+    text="Tamanho máximo é de 14 caracteres">
+  </app-formerror>
+  <app-formerror
+    *ngIf="signupForm.get('password').errors?.pattern"
+    text="Deve conter letras minúsculas, maiúsculas, números e caracteres especiais">
+  </app-formerror>
 
   <!-- Sign up button -->
-  <button class="btn btn-info my-4 btn-block" type="submit">Sign up</button>
+  <button class="btn btn-primary my-4 btn-block" type="submit">Cadastrar-se</button>
 
   <!-- Terms of service -->
-  <p>By clicking
-      <em>Sign up</em> you agree to our
-      <a href="" target="_blank">terms of service</a>
+  <p>Ao clicar em
+    <em>Cadastrar-se</em>
+    você aceita nossos
+    <a href="" target="_blank">termos de uso</a>
 
 </form>
