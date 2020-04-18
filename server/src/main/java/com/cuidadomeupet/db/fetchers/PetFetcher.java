@@ -17,6 +17,8 @@ public class PetFetcher implements Fetcher<Pet> {
         result.setRevision(resultSet.getInt(column++));
         result.setName(resultSet.getString(column++));
         result.setAdditionalInfo(resultSet.getString(column++));
+        result.setUserId(resultSet.getInt(column++));
+        result.setUserRevision(resultSet.getInt(column++));
 
 		return result;
 	}

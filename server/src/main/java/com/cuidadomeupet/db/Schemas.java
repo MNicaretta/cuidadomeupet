@@ -87,6 +87,8 @@ public class Schemas {
             public final String REVISION;
             public final String NAME;
             public final String ADDITIONAL_INFO;
+            public final String USER_ID;
+            public final String USER_REVISION;
 
             public Columns(String alias) {
 
@@ -98,6 +100,8 @@ public class Schemas {
                 REVISION        = alias + "revision";
                 NAME            = alias + "name";
                 ADDITIONAL_INFO = alias + "additional_info";
+                USER_ID         = alias + "user_id";
+                USER_REVISION   = alias + "user_revision";
             }
     
             @Override
@@ -106,7 +110,9 @@ public class Schemas {
                 return ID               + ", " +
                        REVISION         + ", " +
                        NAME             + ", " +
-                       ADDITIONAL_INFO;
+                       ADDITIONAL_INFO  + ", " +
+                       USER_ID          + ", " +
+                       USER_REVISION;
             }
         }
 

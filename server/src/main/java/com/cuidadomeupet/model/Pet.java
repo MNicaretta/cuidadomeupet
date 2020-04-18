@@ -3,7 +3,9 @@ package com.cuidadomeupet.model;
 public class Pet extends Entity {
 
     private String name;
-    private String additionalInfo;
+	private String additionalInfo;
+	private int userId;
+	private int userRevision;
 
     public Pet() {
     }
@@ -26,5 +28,21 @@ public class Pet extends Entity {
 
 	public void setAdditionalInfo(String additionalInfo) {
 		this.additionalInfo = additionalInfo;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getUserRevision() {
+		return userRevision;
+	}
+
+	public void setUserRevision(int userRevision) {
+		this.userRevision = userRevision;
 	}
 }

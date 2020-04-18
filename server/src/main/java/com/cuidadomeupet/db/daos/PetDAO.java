@@ -15,10 +15,12 @@ public class PetDAO {
         Pets P = Pets.alias("");
 
         String sql = "insert into " + P.name + " ( " +
-                        P.columns.REVISION + ", " +
-                        P.columns.NAME + ", " +
-                        P.columns.ADDITIONAL_INFO + 
-                     " ) values ( ?, ?, ?, ? ) returning " + P.columns.ID;
+                        P.columns.REVISION        + ", " +
+                        P.columns.NAME            + ", " +
+                        P.columns.ADDITIONAL_INFO + ", " +
+                        P.columns.USER_ID         + ", " +
+                        P.columns.USER_REVISION   + 
+                     " ) values ( ?, ?, ?, ?, ? ) returning " + P.columns.ID;
 
         PreparedStatement ps = db.getPreparedStatement(sql);
 
@@ -28,6 +30,8 @@ public class PetDAO {
             ps.setInt(count++, pet.getRevision());
             ps.setString(count++, pet.getName());
             ps.setString(count++, pet.getAdditionalInfo());
+            ps.setInt(count++, pet.getUserId());
+            ps.setInt(count++, pet.getUserRevision());
             
             pet.setId(db.queryInt(ps));
         } finally {
@@ -40,8 +44,10 @@ public class PetDAO {
         Pets P = Pets.alias("");
 
         String sql = "update " + P.name + " set " +
-                        P.columns.NAME  + " = ?, " +
-                        P.columns.ADDITIONAL_INFO + " = ?" +
+                        P.columns.NAME            + " = ?, " +
+                        P.columns.ADDITIONAL_INFO + " = ?, " +
+                        P.columns.USER_ID         + " = ?, " +
+                        P.columns.USER_REVISION   + " = ?" +
                      " where " +
                         P.columns.ID + " = ?" +
                      " and " +
@@ -55,6 +61,8 @@ public class PetDAO {
             // SET
             ps.setString(count++, pet.getName());
             ps.setString(count++, pet.getAdditionalInfo());
+            ps.setInt(count++, pet.getUserId());
+            ps.setInt(count++, pet.getUserRevision());
             // WHERE
             ps.setInt(count++, pet.getId());
             ps.setInt(count++, pet.getRevision());
