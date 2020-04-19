@@ -1,0 +1,21 @@
+<!-- Default form register -->
+<form class="text-center border border-light p-5" [formGroup]="petsForm" (ngSubmit)="save()">
+
+  <p class="h4 mb-4">Registro do Pet</p>
+
+  <!-- Name -->
+  <input formControlName="name" type="text" class="form-control" placeholder="Nome">
+  <app-formerror *ngIf="petsForm.get('name').errors?.required" text="Este campo é obrigatório">
+  </app-formerror>
+
+  <!-- Additional Info -->
+  <textarea formControlName="additionalInfo" class="form-control mt-4" placeholder="Informações adicionais">
+  </textarea>
+
+  <!-- Save button -->
+  <button [disabled]="petsForm.invalid" class="btn btn-primary my-4 btn-block" type="submit">Salvar</button>
+
+  <!-- Cancel button -->
+  <button class="btn btn-secondary my-4 btn-block" type="button" (click)="cancel()">Cancelar</button>
+
+</form>
