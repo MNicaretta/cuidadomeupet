@@ -103,6 +103,27 @@ public class UserDAO {
         return db.fetchOne(sql, Users.fetcher);
     }
 
+    public User getUserByEmail(Database db, String email) throws Exception {
+
+        Users U = Users.table;
+
+        String sql = U.select +
+                     " where " +
+                     U.columns.EMAIL + " = ?" +
+                     " and " +
+                     U.columns.REVISION + " = " + 0;
+
+        PreparedStatement ps = db.getPreparedStatement(sql);
+
+        try {
+            ps.setString(1, email);
+
+            return db.fetchOne(ps, Users.fetcher);
+        } finally {
+            ps.close();
+        }
+    }
+
     public List<User> getUsers(Database db) throws Exception {
 
         Users U = Users.table;

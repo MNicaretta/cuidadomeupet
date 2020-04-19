@@ -83,7 +83,19 @@ public class Database {
 
         statement = connection.createStatement();
 
-        ResultSet resultSet = statement.executeQuery(sql);
+        try {
+            return fetchOne(statement.executeQuery(sql), fetcher);
+        } finally {
+            statement.close();
+        }
+    }
+
+    public <T> T fetchOne(PreparedStatement ps, Fetcher<T> fetcher) throws Exception {
+
+        return fetchOne(ps.executeQuery(), fetcher);
+    }
+
+    public <T> T fetchOne(ResultSet resultSet, Fetcher<T> fetcher) throws Exception {
 
         T t = null;
 
@@ -92,8 +104,6 @@ public class Database {
         }
 
         resultSet.close();
-
-        statement.close();
 
         return t;
     }

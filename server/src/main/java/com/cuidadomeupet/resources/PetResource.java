@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.Pet;
-import com.cuidadomeupet.db.services.PetService;
+import com.cuidadomeupet.services.PetService;
 
 @ApplicationScoped
 @Path("pets")
@@ -34,7 +34,7 @@ public class PetResource {
 
         service.addPet(pet);
 
-        return Response.status(200).entity(pet).build();
+        return Response.status(Status.OK).entity(pet).build();
     }
 
     @PUT
@@ -46,7 +46,7 @@ public class PetResource {
 
         service.updatePet(pet);
 
-        return Response.status(200).entity(pet).build();
+        return Response.status(Status.OK).entity(pet).build();
     }
 
     @DELETE
@@ -61,7 +61,7 @@ public class PetResource {
 
         service.deletePet(pet);
 
-        return Response.status(200).entity(pet).build();
+        return Response.status(Status.OK).entity(pet).build();
     }
 
     @GET
@@ -74,7 +74,7 @@ public class PetResource {
 
         Pet pet = service.getPet(entity);
 
-        return Response.status(200).entity(pet).build();
+        return Response.status(Status.OK).entity(pet).build();
     }
 
     @GET
