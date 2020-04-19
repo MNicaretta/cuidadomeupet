@@ -10,12 +10,15 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { FormerrorModule } from '../shared/components/formerror/formerror.module';
 import { MainComponent } from './main/main.component';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [
     SignupComponent,
     HomeComponent,
     MainComponent
+    HomeComponent,
+    SigninComponent
   ],
   imports: [
     CommonModule,
