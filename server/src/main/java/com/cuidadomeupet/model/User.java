@@ -8,8 +8,7 @@ public class User extends Entity {
     private String identity = "";
     private String phone = "";
 
-    public User() {
-    }
+    public User() {}
 
     public User(String name) {
         this.name = name;

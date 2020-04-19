@@ -1,4 +1,4 @@
-package com.cuidadomeupet.db.services;
+package com.cuidadomeupet.services;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.User;
+import com.cuidadomeupet.utils.BCryptUtils;
 import com.cuidadomeupet.db.Database;
 import com.cuidadomeupet.db.daos.UserDAO;
 
@@ -16,6 +17,8 @@ public class UserServiceDefault implements UserService {
 
     @Override
     public void addUser(User user) throws Exception {
+
+        user.setPassword(BCryptUtils.bcryptHash(user.getPassword()));
 
         Database db = Database.getInstance();
 
@@ -28,6 +31,12 @@ public class UserServiceDefault implements UserService {
 
     @Override
     public void updateUser(User user) throws Exception {
+
+        User old = getUser(new Entity(user.getId(), user.getRevision()));
+
+        if (!user.getPassword().equals(old.getPassword())) {
+            user.setPassword(BCryptUtils.bcryptHash(user.getPassword()));
+        }
 
         Database db = Database.getInstance();
 

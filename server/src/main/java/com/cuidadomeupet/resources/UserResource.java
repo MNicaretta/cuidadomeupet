@@ -2,7 +2,7 @@ package com.cuidadomeupet.resources;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,9 +18,9 @@ import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.User;
-import com.cuidadomeupet.db.services.UserService;
+import com.cuidadomeupet.services.UserService;
 
-@ApplicationScoped
+@RequestScoped
 @Path("users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -34,7 +34,7 @@ public class UserResource {
 
         service.addUser(user);
 
-        return Response.status(200).entity(user).build();
+        return Response.status(Status.OK).entity(user).build();
     }
 
     @PUT
@@ -46,7 +46,7 @@ public class UserResource {
 
         service.updateUser(user);
 
-        return Response.status(200).entity(user).build();
+        return Response.status(Status.OK).entity(user).build();
     }
 
     @DELETE
@@ -61,7 +61,7 @@ public class UserResource {
 
         service.deleteUser(user);
 
-        return Response.status(200).entity(user).build();
+        return Response.status(Status.OK).entity(user).build();
     }
 
     @GET
@@ -74,7 +74,7 @@ public class UserResource {
 
         User user = service.getUser(entity);
 
-        return Response.status(200).entity(user).build();
+        return Response.status(Status.OK).entity(user).build();
     }
 
     @GET

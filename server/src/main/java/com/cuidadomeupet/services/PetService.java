@@ -1,4 +1,4 @@
-package com.cuidadomeupet.db.services;
+package com.cuidadomeupet.services;
 
 import java.util.List;
 
