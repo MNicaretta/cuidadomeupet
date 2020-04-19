@@ -3,5 +3,9 @@ html {
   font-family: Roboto;
 }
 
+body {
+  margin-top: 56px !important;
+}
+
 @import 'customize-bootstrap.scss';
 @import '../node_modules/bootstrap/scss/bootstrap';
