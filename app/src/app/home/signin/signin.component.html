@@ -1,23 +1,9 @@
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-    </div>
-
-    <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-
-  </div>
-</div>
+<form class="text-center border border-light p-5">
+  <fa-icon [icon]="faUser" size="4x"></fa-icon>
+  <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+  <label for="inputEmail" class="sr-only">E-mail</label>
+  <input type="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" required="" autofocus="">
+  <label for="inputPassword" class="sr-only">Senha</label>
+  <input type="password" id="inputPassword" class="form-control mb-3" placeholder="Senha" required="">
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+</form>
