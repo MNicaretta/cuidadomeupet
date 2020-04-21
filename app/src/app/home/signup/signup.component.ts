@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SignupService } from './signup.service';
-import { User } from './user';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { User } from 'src/app/core/models/user';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -13,7 +14,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private signupService: SignupService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +47,7 @@ export class SignupComponent implements OnInit {
   signup(): void {
     const user = this.signupForm.value as User;
 
-    this.signupService
+    this.authService
       .signup(user)
       .subscribe(
         (value) => console.log(value),

@@ -5,8 +5,8 @@ public class User extends Entity {
     private String name;
     private String email;
     private String password;
-    private String identity = "";
-    private String phone = "";
+    private String identity;
+    private String phone;
 
     public User() {}
 
