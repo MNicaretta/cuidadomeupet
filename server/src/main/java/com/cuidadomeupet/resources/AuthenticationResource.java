@@ -9,8 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.cuidadomeupet.model.LoginRequest;
-import com.cuidadomeupet.model.LoginResponse;
+import com.cuidadomeupet.model.SigninRequest;
+import com.cuidadomeupet.model.SigninResponse;
 import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.services.AuthenticationService;
 import com.cuidadomeupet.utils.TokenUtils;
@@ -25,10 +25,25 @@ public class AuthenticationResource {
     AuthenticationService authenticationService;
 
     @POST
-    @Path("login")
-    public Response login(LoginRequest request) throws Exception {
+    @Path("signup")
+    public Response signup(User user) throws Exception {
 
-        User user = authenticationService.login(request);
+        authenticationService.signup(user);
+
+        String token = TokenUtils.generateTokenString(user);
+
+        SigninResponse response = new SigninResponse();
+        response.setUser(user);
+        response.setToken(token);
+
+        return Response.status(Response.Status.OK).entity(response).build();
+    }
+
+    @POST
+    @Path("signin")
+    public Response signin(SigninRequest request) throws Exception {
+
+        User user = authenticationService.signin(request);
 
         if (user == null) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
@@ -36,7 +51,7 @@ public class AuthenticationResource {
 
         String token = TokenUtils.generateTokenString(user);
 
-        LoginResponse response = new LoginResponse();
+        SigninResponse response = new SigninResponse();
         response.setUser(user);
         response.setToken(token);
 

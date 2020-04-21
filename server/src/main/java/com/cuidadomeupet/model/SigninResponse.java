@@ -1,11 +1,11 @@
 package com.cuidadomeupet.model;
 
-public class LoginResponse {
+public class SigninResponse {
 
     private User user;
     private String token;
 
-    public LoginResponse() {}
+    public SigninResponse() {}
 
 	public User getUser() {
 		return user;

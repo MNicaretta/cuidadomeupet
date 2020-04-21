@@ -1,9 +1,10 @@
 package com.cuidadomeupet.services;
 
-import com.cuidadomeupet.model.LoginRequest;
+import com.cuidadomeupet.model.SigninRequest;
 import com.cuidadomeupet.model.User;
 
 public interface AuthenticationService {
 
-    public User login(LoginRequest request) throws Exception;
+    public void signup(User user) throws Exception;
+    public User signin(SigninRequest request) throws Exception;
 }

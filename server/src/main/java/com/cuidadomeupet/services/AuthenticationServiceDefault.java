@@ -4,7 +4,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.cuidadomeupet.db.Database;
 import com.cuidadomeupet.db.daos.UserDAO;
-import com.cuidadomeupet.model.LoginRequest;
+import com.cuidadomeupet.model.SigninRequest;
 import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.utils.BCryptUtils;
 
@@ -13,8 +13,20 @@ public class AuthenticationServiceDefault implements AuthenticationService {
 
     private UserDAO dao = new UserDAO();
 
+    @Override
+    public void signup(User user) throws Exception {
+        
+        Database db = Database.getInstance();
+
+        try {
+            dao.insertUser(db, user);
+        } finally {
+            db.release();
+        }
+    }
+
 	@Override
-	public User login(LoginRequest request) throws Exception {
+	public User signin(SigninRequest request) throws Exception {
         
         Database db = Database.getInstance();
 
@@ -28,6 +40,7 @@ public class AuthenticationServiceDefault implements AuthenticationService {
 
         if (user != null) {
             if (BCryptUtils.verify(user.getPassword(), request.getPassword())) {
+
                 return user;
             }
         }

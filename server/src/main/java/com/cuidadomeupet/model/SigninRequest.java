@@ -1,11 +1,11 @@
 package com.cuidadomeupet.model;
 
-public class LoginRequest {
+public class SigninRequest {
 
     private String email;
     private String password;
 
-    public LoginRequest() {}
+    public SigninRequest() {}
 
 	public String getEmail() {
 		return email;

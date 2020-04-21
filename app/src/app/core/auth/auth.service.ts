@@ -19,21 +19,30 @@ export class AuthService {
 
   signup(user: User) {
 
-    return this.http.post(API_URL + '/signup', user);
+    return this.http
+      .post(
+        API_URL + '/signup',
+        user,
+        { observe: 'response' }
+      )
+      .pipe(tap(res => {
+        const token = res.body['token'];
+        this.tokenService.setToken(token);
+      }));
   }
 
   signin(email: string, password: string) {
 
     return this.http
       .post(
-        API_URL + '/login',
+        API_URL + '/signin',
         { email, password },
         { observe: 'response' }
       )
       .pipe(tap(res => {
         const token = res.body['token'];
         this.tokenService.setToken(token);
-      }))
+      }));
   }
 
   signout() {
