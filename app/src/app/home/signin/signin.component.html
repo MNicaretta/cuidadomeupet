@@ -1,9 +1,13 @@
-<form class="text-center border border-light p-5">
+<form class="text-center border border-light p-5" [formGroup]="signinForm" (ngSubmit)="login()">
   <fa-icon [icon]="faUser" size="4x"></fa-icon>
   <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-  <label for="inputEmail" class="sr-only">E-mail</label>
-  <input type="email" id="inputEmail" class="form-control mb-3" placeholder="Email address" required="" autofocus="">
-  <label for="inputPassword" class="sr-only">Senha</label>
-  <input type="password" id="inputPassword" class="form-control mb-3" placeholder="Senha" required="">
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+  <input type="email" id="inputEmail" formControlName="email" class="form-control mt-4" placeholder="E-mail" required=""
+    autofocus="">
+  <app-formerror *ngIf="signinForm.get('email').errors?.required" text="Este campo é obrigatório">
+  </app-formerror>
+  <input type="password" id="inputPassword" formControlName="password" class="form-control mt-4" placeholder="Senha"
+    required="">
+  <app-formerror *ngIf="signinForm.get('password').errors?.required" text="Este campo é obrigatório">
+  </app-formerror>
+  <button class="btn btn-primary my-4 btn-block" type="submit">Entrar</button>
 </form>

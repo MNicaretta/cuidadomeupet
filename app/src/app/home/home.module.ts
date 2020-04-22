@@ -11,6 +11,7 @@ import { FormerrorModule } from '../shared/components/formerror/formerror.module
 import { MainComponent } from './main/main.component';
 import { SigninComponent } from './signin/signin.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SigninService } from './signin/signin.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   exports: [
   ],
   providers: [
-    SignupService
+    SignupService,
+    SigninService
   ]
 })
 export class HomeModule { }
