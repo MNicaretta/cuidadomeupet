@@ -4,11 +4,15 @@ import { PetsComponent } from './pets.component';
 import { PetsListComponent } from './pets-list/pets-list.component';
 import { PetsListResolver } from './pets-list/pets-list.resolver';
 import { PetsFormComponent } from './pets-form/pets-form.component';
+import { AuthGuard } from '../core/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: PetsComponent,
+    canActivate: [
+      AuthGuard
+    ],
     children: [
       {
         path: '',
