@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../home/signup/user';
+import { User } from '../core/models/user';
 
 const API_URL = "http://localhost:8080/api/users";
 
