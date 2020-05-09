@@ -1,10 +1,10 @@
 package com.cuidadomeupet.db;
 
-import com.cuidadomeupet.model.Pet;
-import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.db.fetchers.Fetcher;
 import com.cuidadomeupet.db.fetchers.PetFetcher;
 import com.cuidadomeupet.db.fetchers.UserFetcher;
+import com.cuidadomeupet.model.Pet;
+import com.cuidadomeupet.model.User;
 
 public class Schemas {
 
@@ -23,6 +23,8 @@ public class Schemas {
             public final String PASSWORD;
             public final String IDENTITY;
             public final String PHONE;
+            public final String DESCRIPTION;
+            public final String CREATED_DATE;
 
             public Columns(String alias) {
 
@@ -30,25 +32,29 @@ public class Schemas {
                     alias += ".";
                 }
 
-                ID       = alias + "id";
-                REVISION = alias + "revision";
-                NAME     = alias + "name";
-                EMAIL    = alias + "email";
-                PASSWORD = alias + "password";
-                IDENTITY = alias + "identity";
-                PHONE    = alias + "phone";
+                ID           = alias + "id";
+                REVISION     = alias + "revision";
+                NAME         = alias + "name";
+                EMAIL        = alias + "email";
+                PASSWORD     = alias + "password";
+                IDENTITY     = alias + "identity";
+                PHONE        = alias + "phone";
+                DESCRIPTION  = alias + "description";
+                CREATED_DATE = alias + "created_date";
             }
     
             @Override
             public String toString() {
 
-                return ID       + ", " +
-                       REVISION + ", " +
-                       NAME     + ", " +
-                       EMAIL    + ", " +
-                       PASSWORD + ", " +
-                       IDENTITY + ", " +
-                       PHONE;
+                return ID          + ", " +
+                       REVISION    + ", " +
+                       NAME        + ", " +
+                       EMAIL       + ", " +
+                       PASSWORD    + ", " +
+                       IDENTITY    + ", " +
+                       PHONE       + ", " +
+                       DESCRIPTION + ", " +
+                       CREATED_DATE;
             }
         }
 

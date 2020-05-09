@@ -1,5 +1,6 @@
 package com.cuidadomeupet.db.daos;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
 
@@ -15,13 +16,15 @@ public class UserDAO {
         Users U = Users.alias("");
 
         String sql = "insert into " + U.name + " ( " +
-                        U.columns.REVISION + ", " +
-                        U.columns.NAME     + ", " +
-                        U.columns.EMAIL    + ", " +
-                        U.columns.PASSWORD + ", " +
-                        U.columns.IDENTITY + ", " +
-                        U.columns.PHONE    +
-                     " ) values ( ?, ?, ?, ?, ?, ? ) returning " + U.columns.ID;
+                        U.columns.REVISION     + ", " +
+                        U.columns.NAME         + ", " +
+                        U.columns.EMAIL        + ", " +
+                        U.columns.PASSWORD     + ", " +
+                        U.columns.IDENTITY     + ", " +
+                        U.columns.PHONE        + ", " +
+                        U.columns.DESCRIPTION  + ", " +
+                        U.columns.CREATED_DATE +
+                     " ) values ( ?, ?, ?, ?, ?, ?, ?, ? ) returning " + U.columns.ID;
 
         PreparedStatement ps = db.getPreparedStatement(sql);
 
@@ -34,6 +37,8 @@ public class UserDAO {
             ps.setString(count++, user.getPassword());
             ps.setString(count++, user.getIdentity());
             ps.setString(count++, user.getPhone());
+            ps.setString(count++, user.getDescription());
+            ps.setDate(count++, new Date(System.currentTimeMillis()));
             
             user.setId(db.queryInt(ps));
         } finally {
@@ -46,11 +51,13 @@ public class UserDAO {
         Users U = Users.alias("");
 
         String sql = "update " + U.name + " set " +
-                        U.columns.NAME  + " = ?, " +
-                        U.columns.EMAIL + " = ?, " +
-                        U.columns.PASSWORD + " = ?, " +
-                        U.columns.IDENTITY + " = ?, " +
-                        U.columns.PHONE    + " = ?" +
+                        U.columns.NAME         + " = ?, " +
+                        U.columns.EMAIL        + " = ?, " +
+                        U.columns.PASSWORD     + " = ?, " +
+                        U.columns.IDENTITY     + " = ?, " +
+                        U.columns.PHONE        + " = ?," +
+                        U.columns.DESCRIPTION  + " = ?," +
+                        U.columns.CREATED_DATE + " = ?" +
                      " where " +
                         U.columns.ID + " = ?" +
                      " and " +
@@ -67,6 +74,7 @@ public class UserDAO {
             ps.setString(count++, user.getPassword());
             ps.setString(count++, user.getIdentity());
             ps.setString(count++, user.getPhone());
+            ps.setString(count++, user.getDescription());
             // WHERE
             ps.setInt(count++, user.getId());
             ps.setInt(count++, user.getRevision());

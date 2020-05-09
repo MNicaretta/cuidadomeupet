@@ -1,12 +1,16 @@
 package com.cuidadomeupet.model;
 
+import java.util.Date;
+
 public class User extends Entity {
 
     private String name;
     private String email;
     private String password;
     private String identity;
-    private String phone;
+	private String phone;
+	private String description;
+	private Date createdDate;
 
     public User() {}
 
@@ -52,5 +56,21 @@ public class User extends Entity {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 }
