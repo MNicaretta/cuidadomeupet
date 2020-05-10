@@ -12,6 +12,14 @@ const routes: Routes = [
     loadChildren: () => import('./pets/pets.module').then(m => m.PetsModule)
   },
   {
+    path: 'services',
+    loadChildren: () => import('./pets/pets.module').then(m => m.PetsModule)
+  },
+  // {
+  //   path: 'profile',
+  //   loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+  // },
+  {
     path: '404',
     component: NotFoundComponent
   },
