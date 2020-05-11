@@ -20,6 +20,8 @@ import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.Pet;
 import com.cuidadomeupet.services.PetService;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 @ApplicationScoped
 @Path("pets")
 @Produces(MediaType.APPLICATION_JSON)

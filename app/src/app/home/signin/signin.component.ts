@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { AuthService } from 'src/app/core/auth/auth.service';
-import { User } from 'src/app/core/models/user';
 
 @Component({
   selector: 'app-signin',
