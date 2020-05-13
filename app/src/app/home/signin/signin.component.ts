@@ -3,6 +3,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -13,10 +14,13 @@ export class SigninComponent implements OnInit {
 
   faUser = faUser;
   signinForm: FormGroup;
+  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +39,8 @@ export class SigninComponent implements OnInit {
         ]
       ]
     });
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   login() {
@@ -44,8 +50,9 @@ export class SigninComponent implements OnInit {
     this.authService
       .signin(email, password)
       .subscribe(
-        (value) => console.log(value),
-        err => console.error(err)
+        (value) => this.router.navigate([this.returnUrl]),
+        err => console.error(err),
+
       );
   }
 }
