@@ -50,9 +50,8 @@ export class SigninComponent implements OnInit {
     this.authService
       .signin(email, password)
       .subscribe(
-        (value) => this.router.navigate([this.returnUrl]),
-        err => console.error(err),
-
+        () => this.router.navigate([this.returnUrl]),
+        err => console.error(err)
       );
   }
 }

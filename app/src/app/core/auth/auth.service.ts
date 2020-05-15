@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators'
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { TokenService } from './token.service';
 import { User } from '../models/user';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 const API_URL = '/api/auth';
 
@@ -62,5 +62,10 @@ export class AuthService {
     this.tokenService.removeToken();
     localStorage.removeItem('userName');
     this.currentUserSubject.next(null);
+  }
+
+  validateUser(email: string) {
+
+    return this.http.post(API_URL + "/validate", { email });
   }
 }

@@ -12,5 +12,7 @@ public interface UserService {
     public void deleteUser(User user) throws Exception;
 
     public User getUser(Entity entity) throws Exception;
+    public User getUserByEmail(String email) throws Exception;
+
     public List<User> getUsers() throws Exception;
 }
