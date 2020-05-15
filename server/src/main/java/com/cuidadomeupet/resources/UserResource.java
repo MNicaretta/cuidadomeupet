@@ -2,10 +2,8 @@ package com.cuidadomeupet.resources;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.resource.spi.work.SecurityContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,7 +12,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -22,8 +19,6 @@ import javax.ws.rs.core.Response.Status;
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.services.UserService;
-
-import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @RequestScoped
 @Path("users")
@@ -33,8 +28,6 @@ public class UserResource {
 
     @Inject
     UserService service;
-    @Inject
-    JsonWebToken jwt;
 
     @POST
     public Response addUser(User user) throws Exception {
@@ -90,20 +83,5 @@ public class UserResource {
         List<User> users = service.getUsers();
 
         return Response.status(Status.OK).entity(users).build();
-    }
-
-    @GET
-    @Path("current")
-    @RolesAllowed({"user"})
-    public Response getCurrent(@Context SecurityContext ctx) throws Exception {
-        Integer id = Integer.parseInt(jwt.getSubject());
-
-        Entity entity = new Entity();
-        entity.setId(id);
-        entity.setRevision(0);
-
-        User user = service.getUser(entity);
-
-        return Response.status(Status.OK).entity(user).build();
     }
 }
