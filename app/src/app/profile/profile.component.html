@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="row flex-lg-nowrap">
+    <div class="col">
+      <div class="row">
+        <div class="col mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="e-profile">
+                <div class="row">
+                  <div class="col-12 col-sm-auto mb-3">
+                    <div class="mx-auto" style="width: 140px;">
+                      <img src="assets/img/user-circle-regular.png" alt="Imagem do usuário" width="140" height="140">
+                    </div>
+                  </div>
+                  <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                      <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ currentUser.name }}</h4>
+                      <p></p>
+                      <p></p>
+                      <div class="mt-2">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fa fa-fw fa-camera"></i>
+                          <span>Alterar imagem</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="text-center text-sm-right">
+                      <span class="badge badge-secondary">Cliente</span>
+                      <div class="text-muted"><small>Cadastrado em
+                          {{currentUser.createdDate | date}}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" [ngClass]="{ 'active':activeTab==='profile'}"
+                      (click)="tabActive('profile')" data-toggle="tab">Perfil</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='pets'}" (click)="tabActive('pets')"
+                      data-toggle="tab">Meus pets</a>
+                  </li>
+                </ul>
+                <div class="tab-content pt-3">
+                  <div class="tab-pane fade show active" id="profile" [ngClass]="{ 'active':activeTab==='profile'}">
+                    <form class="form" [formGroup]="profileForm" (ngSubmit)="update()">
+                      <div class="row">
+                        <div class="col">
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Nome Completo</label>
+                                <input type="text" formControlName="name" class="form-control" name="name">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" formControlName="email" class="form-control">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col mb-3">
+                              <div class="form-group">
+                                <label>Sobre</label>
+                                <textarea formControlName="description" class="form-control" rows="5"
+                                  placeholder="Descrição"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="mb-2"><b>Trocar Senha</b></div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Senha atual</label>
+                                <input type="password" formControlName="actualPassword" class="form-control"
+                                  placeholder="••••••">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Nova senha</label>
+                                <input type="password" formControlName="newPassword" class="form-control"
+                                  placeholder="••••••">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Confirmar Nova Senha</label>
+                                <input type="password" formControlName="confirmPassword" class="form-control"
+                                  placeholder="••••••"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col d-flex justify-content-end">
+                          <button class="btn btn-primary" type="submit">Salvar alterações</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade show active" id="pets" [ngClass]="{ 'active':activeTab==='pets'}">
+                    <div class="col d-flex">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fa fa-fw fa-plus"></i>
+                        <span>Adicionar pet</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3 mb-3">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="px-xl-3">
+                <button class="btn btn-block btn-secondary">
+                  <i class="fa fa-sign-out"></i>
+                  <span>Sair</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title font-weight-bold">Ajuda</h6>
+              <p class="card-text">Precisa de alguma ajuda, entre em contato conosco</p>
+              <button type="button" class="btn btn-primary">Fale conosco</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

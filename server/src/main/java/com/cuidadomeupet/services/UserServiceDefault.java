@@ -2,15 +2,15 @@ package com.cuidadomeupet.services;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 
+import com.cuidadomeupet.db.Database;
+import com.cuidadomeupet.db.daos.UserDAO;
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.utils.BCryptUtils;
-import com.cuidadomeupet.db.Database;
-import com.cuidadomeupet.db.daos.UserDAO;
 
-@ApplicationScoped
+@RequestScoped
 public class UserServiceDefault implements UserService {
  
     private UserDAO dao = new UserDAO();

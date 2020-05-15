@@ -20,6 +20,8 @@ public class UserFetcher implements Fetcher<User> {
         result.setPassword(resultSet.getString(column++));
         result.setIdentity(resultSet.getString(column++));
         result.setPhone(resultSet.getString(column++));
+        result.setDescription(resultSet.getString(column++));
+        result.setCreatedDate(resultSet.getDate(column++));
 
 		return result;
 	}

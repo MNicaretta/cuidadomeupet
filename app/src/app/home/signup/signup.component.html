@@ -1,52 +1,54 @@
 <!-- Default form register -->
-<form class="text-center border border-light p-5" [formGroup]="signupForm" (ngSubmit)="signup()">
+<div class="container">
+  <form class="text-center border border-light p-5" [formGroup]="signupForm" (ngSubmit)="signup()">
 
-  <p class="h4 mb-4">Cadastro</p>
+    <p class="h4 mb-4">Cadastro</p>
 
-  <!-- Name -->
-  <input type="text" formControlName="name" class="form-control" placeholder="Nome">
-  <app-formerror
-    *ngIf="signupForm.get('name').errors?.required"
-    text="Este campo é obrigatório">
-  </app-formerror>
+    <!-- Name -->
+    <input type="text" formControlName="name" class="form-control" placeholder="Nome">
+    <app-formerror
+      *ngIf="signupForm.get('name').errors?.required"
+      text="Este campo é obrigatório">
+    </app-formerror>
 
-  <!-- E-mail -->
-  <input type="email" formControlName="email" class="form-control mt-4" placeholder="E-mail">
-  <app-formerror
-    *ngIf="signupForm.get('email').errors?.required"
-    text="Este campo é obrigatório">
-  </app-formerror>
-  <app-formerror
-    *ngIf="signupForm.get('email').errors?.email"
-    text="O e-mail informado não é válido">
-  </app-formerror>
+    <!-- E-mail -->
+    <input type="email" formControlName="email" class="form-control mt-4" placeholder="E-mail">
+    <app-formerror
+      *ngIf="signupForm.get('email').errors?.required"
+      text="Este campo é obrigatório">
+    </app-formerror>
+    <app-formerror
+      *ngIf="signupForm.get('email').errors?.email"
+      text="O e-mail informado não é válido">
+    </app-formerror>
 
-  <!-- Password -->
-  <input type="password" formControlName="password" class="form-control mt-4" placeholder="Password">
-  <app-formerror
-    *ngIf="signupForm.get('password').errors?.required"
-    text="Este campo é obrigatório">
-  </app-formerror>
-  <app-formerror
-    *ngIf="signupForm.get('password').errors?.minlength"
-    text="Tamanho mínimo é de 8 caracteres">
-  </app-formerror>
-  <app-formerror
-    *ngIf="signupForm.get('password').errors?.maxlength"
-    text="Tamanho máximo é de 14 caracteres">
-  </app-formerror>
-  <app-formerror
-    *ngIf="signupForm.get('password').errors?.pattern"
-    text="Deve conter letras minúsculas, maiúsculas, números e caracteres especiais">
-  </app-formerror>
+    <!-- Password -->
+    <input type="password" formControlName="password" class="form-control mt-4" placeholder="Password">
+    <app-formerror
+      *ngIf="signupForm.get('password').errors?.required"
+      text="Este campo é obrigatório">
+    </app-formerror>
+    <app-formerror
+      *ngIf="signupForm.get('password').errors?.minlength"
+      text="Tamanho mínimo é de 8 caracteres">
+    </app-formerror>
+    <app-formerror
+      *ngIf="signupForm.get('password').errors?.maxlength"
+      text="Tamanho máximo é de 14 caracteres">
+    </app-formerror>
+    <app-formerror
+      *ngIf="signupForm.get('password').errors?.pattern"
+      text="Deve conter letras minúsculas, maiúsculas, números e caracteres especiais">
+    </app-formerror>
 
-  <!-- Sign up button -->
-  <button class="btn btn-primary my-4 btn-block" type="submit">Cadastrar-se</button>
+    <!-- Sign up button -->
+    <button class="btn btn-primary my-4 btn-block" type="submit">Cadastrar-se</button>
 
-  <!-- Terms of service -->
-  <p>Ao clicar em
-    <em>Cadastrar-se</em>
-    você aceita nossos
-    <a href="" target="_blank">termos de uso</a>
+    <!-- Terms of service -->
+    <p>Ao clicar em
+      <em>Cadastrar-se</em>
+      você aceita nossos
+      <a href="" target="_blank">termos de uso</a>
 
-</form>
+  </form>
+</div>
