@@ -72,6 +72,18 @@ public class UserServiceDefault implements UserService {
     }
 
     @Override
+    public User getUserByEmail(String email) throws Exception {
+
+        Database db = Database.getInstance();
+
+        try {
+            return dao.getUserByEmail(db, email);
+        } finally {
+            db.release();
+        }
+    }
+
+    @Override
     public List<User> getUsers() throws Exception {
 
         Database db = Database.getInstance();

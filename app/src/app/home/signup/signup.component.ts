@@ -3,10 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { User } from 'src/app/core/models/user';
+import { UserValidationService } from 'src/app/core/auth/user-validation.service';
 
 @Component({
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  providers: [ UserValidationService ]
 })
 export class SignupComponent implements OnInit {
 
@@ -14,7 +16,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private userValidationService : UserValidationService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +32,9 @@ export class SignupComponent implements OnInit {
         [
           Validators.required,
           Validators.email
+        ],
+        [
+          this.userValidationService.userValidation()
         ]
       ],
       password: [
