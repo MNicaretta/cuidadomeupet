@@ -15,7 +15,9 @@ public class AuthenticationServiceDefault implements AuthenticationService {
 
     @Override
     public void signup(User user) throws Exception {
-        
+
+        user.setPassword(BCryptUtils.bcryptHash(user.getPassword()));
+
         Database db = Database.getInstance();
 
         try {
