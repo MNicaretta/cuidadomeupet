@@ -2,7 +2,7 @@ package com.cuidadomeupet.resources;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -20,7 +20,7 @@ import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.Pet;
 import com.cuidadomeupet.services.PetService;
 
-@ApplicationScoped
+@RequestScoped
 @Path("pets")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
