@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'services',
-    loadChildren: () => import('./pets/pets.module').then(m => m.PetsModule)
+    loadChildren: () => import('./services/services.module').then(m => m.ServicesModule)
   },
   {
     path: '404',

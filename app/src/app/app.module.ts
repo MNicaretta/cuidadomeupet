@@ -10,8 +10,7 @@ import { ServicesComponent } from './services/services.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ServicesComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
