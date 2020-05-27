@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.Pet;
 import com.cuidadomeupet.services.PetService;

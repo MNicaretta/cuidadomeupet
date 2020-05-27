@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.Pet;
+import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.db.Database;
 import com.cuidadomeupet.db.Schemas.Pets;
 
@@ -97,6 +98,19 @@ public class PetDAO {
                      P.columns.REVISION + " = " + entity.getRevision();
 
         return db.fetchOne(sql, Pets.fetcher);
+    }
+
+    public List<Pet> getPet(Database db, User user) throws Exception {
+
+        Pets P = Pets.table;
+
+        String sql = P.select +
+                     " where " +
+                     P.columns.USER_ID + " = " + user.getId() +
+                     " and " +
+                     P.columns.USER_REVISION + " = " + user.getRevision();
+
+        return db.fetchAll(sql, Pets.fetcher);
     }
 
     public List<Pet> getPets(Database db) throws Exception {
