@@ -1,7 +1,6 @@
 package com.cuidadomeupet.resources;
 
 import java.util.List;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -15,7 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.services.UserService;

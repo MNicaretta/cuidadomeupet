@@ -1,5 +1,7 @@
 package com.cuidadomeupet.resources;
 
+import java.util.List;
+
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -11,11 +13,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import com.cuidadomeupet.model.Entity;
+import com.cuidadomeupet.model.Pet;
+import com.cuidadomeupet.model.Profile;
 import com.cuidadomeupet.model.User;
+import com.cuidadomeupet.services.PetServiceDefault;
 import com.cuidadomeupet.services.UserService;
-
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @RequestScoped
@@ -25,7 +28,10 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 public class ProfileResource {
     
     @Inject
-    UserService service;
+    UserService userService;
+
+    @Inject
+    PetServiceDefault petService;
 
     @Inject
     JsonWebToken jwt;
@@ -40,9 +46,15 @@ public class ProfileResource {
         entity.setId(id);
         entity.setRevision(0);
 
-        User user = service.getUser(entity);
+        User user = userService.getUser(entity);
+        List<Pet> pets = petService.getPet(user);
 
-        return Response.status(Status.OK).entity(user).build();
+        Profile profile = new Profile();
+
+        profile.setUser(user);
+        profile.setPets(pets);
+
+        return Response.status(Status.OK).entity(profile).build();
     }
 
     @POST
@@ -51,7 +63,7 @@ public class ProfileResource {
 
         Integer id = Integer.parseInt(jwt.getSubject());
 
-        User current = service.getUser(new Entity(id, 0));
+        User current = userService.getUser(new Entity(id, 0));
 
         current.setName(user.getName());
         current.setDescription(user.getDescription());
@@ -60,7 +72,7 @@ public class ProfileResource {
             current.setPassword(user.getPassword());
         }
 
-        service.updateUser(user);
+        userService.updateUser(user);
 
         return Response.status(Status.OK).entity(user).build();
     }

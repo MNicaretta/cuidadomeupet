@@ -6,6 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.cuidadomeupet.model.Entity;
 import com.cuidadomeupet.model.Pet;
+import com.cuidadomeupet.model.User;
 import com.cuidadomeupet.db.Database;
 import com.cuidadomeupet.db.daos.PetDAO;
 
@@ -73,4 +74,15 @@ public class PetServiceDefault implements PetService {
             db.release();
         }
     }
+
+	@Override
+	public List<Pet> getPet(User user) throws Exception {
+        Database db = Database.getInstance();
+
+        try {
+            return dao.getPet(db, user);
+        } finally {
+            db.release();
+        }
+	}
 }

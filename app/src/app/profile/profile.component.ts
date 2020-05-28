@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from './profile.service';
 import { User } from '../core/models/user';
 import { ActivatedRoute } from '@angular/router';
+import { Pet } from '../pets/pet';
+import { Profile } from '../core/models/profile';
+import { PetsService } from '../pets/pets.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,12 +15,16 @@ import { ActivatedRoute } from '@angular/router';
 export class ProfileComponent implements OnInit {
 
   activeTab = 'profile';
-  currentUser: User;
+  profile: Profile;
   profileForm: FormGroup;
+  petForm: FormGroup;
+  currentUser: User;
+  pets: Pet[];
 
   constructor(
     private formBuilder: FormBuilder,
     private profileService: ProfileService,
+    private petsService: PetsService,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -66,17 +73,28 @@ export class ProfileComponent implements OnInit {
       ]
     });
 
+    this.petForm = this.formBuilder.group({
+      name: [
+        '',
+        [Validators.required]
+      ],
+      additionalInfo: [
+        ''
+      ]
+    });
+
     this.activatedRoute.params.subscribe(params => {
-      this.currentUser = this.activatedRoute.snapshot.data['currentUser'];
-      if (this.currentUser) {
+      this.profile = this.activatedRoute.snapshot.data['currentUser'];
+
+      if (this.profile) {
+        this.currentUser = this.profile.user;
         this.profileForm.controls['name'].setValue(this.currentUser.name);
         this.profileForm.controls['email'].setValue(this.currentUser.email);
         this.profileForm.controls['description'].setValue(this.currentUser.description);
 
-        console.log(this.currentUser.createdDate);
+        this.pets = this.profile.pets;
       }
     });
-
   }
 
   tabActive(activeTab: string) {
@@ -90,6 +108,20 @@ export class ProfileComponent implements OnInit {
       .updateUser(user)
       .subscribe(
         (value) => console.log(value),
+        err => console.error(err)
+      );
+  }
+
+  addPet(): void {
+    const pet = this.petForm.value as Pet;
+
+    pet.userId = this.currentUser.id;
+    pet.userRevision = this.currentUser.revision;
+
+    this.petsService
+      .addPet(pet)
+      .subscribe(
+        (value) => console.log(this.activatedRoute.snapshot.data['currentUser'].pets),
         err => console.error(err)
       );
   }

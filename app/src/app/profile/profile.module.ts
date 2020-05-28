@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileResolver } from './profile.resolver';
 import { CoreModule } from '../core/core.module';
+import { PetsService } from '../pets/pets.service';
 registerLocaleData(localeBr, 'br');
 
 @NgModule({
@@ -24,6 +25,7 @@ registerLocaleData(localeBr, 'br');
   ],
   providers: [
     ProfileService,
+    PetsService,
     ProfileResolver,
     { provide: LOCALE_ID, useValue: 'br' }
   ]
