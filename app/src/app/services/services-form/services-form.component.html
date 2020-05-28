@@ -1,1 +1,68 @@
-<p>services-form works!</p>
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEstado">Tipo</label>
+      <select id="inputEstado" class="form-control">
+        <option selected>Hospedagem</option>
+        <option>PetSitter</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputEstado">Preço</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Preço">
+    </div>
+    <div class="form-group">
+      <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+      </ngb-datepicker>
+
+      <ng-template #t let-date let-focused="focused">
+        <span class="custom-day"
+              [class.focused]="focused"
+              [class.range]="isRange(date)"
+              [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null">
+          {{ date.day }}
+        </span>
+      </ng-template>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Espécie(s)</label>
+    <select class="custom-select" multiple>
+      <option selected>Cachorro</option>
+      <option value="1">Gato </option>
+      <option value="2">Pássaro</option>
+      <option value="3">Roedor</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputCity">Tamanho</label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label col-md-4" for="gridCheck">Pequeno</label>
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label col-md-4" for="gridCheck">Médio</label>
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label col-md-4" for="gridCheck">Grande</label>
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputCity">Sexo</label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label col-md-4" for="gridCheck">Masculino</label>
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label col-md-4" for="gridCheck">Feminino</label>
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="exampleFormControlTextarea1">Observações</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <button type="submit" class="btn btn-warning">Cancelar</button>
+</form>
+<app-species-selector></app-species-selector>

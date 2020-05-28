@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ErrorsModule } from './errors/errors.module';
 import { ServicesComponent } from './services/services.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ServicesComponent } from './services/services.component';
     FormsModule,
     ReactiveFormsModule,
     ErrorsModule,
-    CoreModule
+    CoreModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
