@@ -2,8 +2,10 @@ package com.cuidadomeupet.db;
 
 import com.cuidadomeupet.db.fetchers.Fetcher;
 import com.cuidadomeupet.db.fetchers.PetFetcher;
+import com.cuidadomeupet.db.fetchers.ServiceFetcher;
 import com.cuidadomeupet.db.fetchers.UserFetcher;
 import com.cuidadomeupet.model.Pet;
+import com.cuidadomeupet.model.Service;
 import com.cuidadomeupet.model.User;
 
 public class Schemas {
@@ -134,6 +136,82 @@ public class Schemas {
         public final String alias;
 
         private Pets(String alias) {
+
+            this.name = alias != null ? TABLE_NAME + " " + alias : TABLE_NAME;
+
+            this.alias = alias != null ? alias : TABLE_NAME;
+
+            this.columns = new Columns(this.alias);
+
+            this.select = "select " + columns + " from " + name;
+        }
+    }
+
+    public static class Services {
+
+        public static Services alias(String alias) {
+            return new Services(alias);
+        }
+
+        public static class Columns {
+
+            public final String ID;
+            public final String REVISION;
+            public final String TYPE;
+            public final String PRICE;
+            public final String DISTANCE;
+            public final String STATE;
+            public final String USER_ID;
+            public final String USER_REVISION;
+            public final String ADDRESS_ID;
+            public final String ADDRESS_REVISION;
+
+            public Columns(String alias) {
+
+                if (!alias.isEmpty()) {
+                    alias += ".";
+                }
+
+                ID                 = alias + "id";
+                REVISION           = alias + "revision";
+                TYPE               = alias + "type";
+                PRICE              = alias + "price";
+                DISTANCE           = alias + "distance";
+                STATE              = alias + "state";
+                USER_ID            = alias + "user_id";
+                USER_REVISION      = alias + "user_revision";
+                ADDRESS_ID         = alias + "address_id";
+                ADDRESS_REVISION   = alias + "address_revision";
+            }
+    
+            @Override
+            public String toString() {
+
+                return ID                  + ", " +
+                       REVISION            + ", " +
+                       TYPE                + ", " +
+                       PRICE               + ", " +
+                       DISTANCE            + ", " +
+                       STATE               + ", " +
+                       USER_ID             + ", " +
+                       USER_REVISION       + ", " +
+                       ADDRESS_ID          + ", " +
+                       ADDRESS_REVISION;    
+            }
+        }
+
+        private final String TABLE_NAME = "services";
+
+        public static final Services table = new Services(null);
+        public static final Fetcher<Service> fetcher = new ServiceFetcher();
+
+        public final Columns columns;
+
+        public final String select;
+        public final String name;
+        public final String alias;
+
+        private Services(String alias) {
 
             this.name = alias != null ? TABLE_NAME + " " + alias : TABLE_NAME;
 

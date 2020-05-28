@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { User } from 'src/app/core/models/user';
 import { UserValidationService } from 'src/app/core/auth/user-validation.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   templateUrl: './signup.component.html',
@@ -13,11 +14,14 @@ import { UserValidationService } from 'src/app/core/auth/user-validation.service
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
+  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userValidationService : UserValidationService
+    private userValidationService : UserValidationService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -47,7 +51,7 @@ export class SignupComponent implements OnInit {
         ]
       ]
     });
-
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   signup(): void {
@@ -56,7 +60,7 @@ export class SignupComponent implements OnInit {
     this.authService
       .signup(user)
       .subscribe(
-        (value) => console.log(value),
+        () => this.router.navigate([this.returnUrl]),
         err => console.error(err)
       );
   }

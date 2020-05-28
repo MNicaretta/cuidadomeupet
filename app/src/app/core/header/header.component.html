@@ -12,7 +12,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Serviços</a>
+            <a class="nav-link" [routerLink]="['services']">Serviços</a>
           </li>
           <li class="nav-item active" *ngIf="!userName; else profile">
             <a class="nav-link" [routerLink]="['signin']">Login</a>
