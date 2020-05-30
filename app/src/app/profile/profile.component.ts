@@ -116,7 +116,6 @@ export class ProfileComponent implements OnInit {
     const pet = this.petForm.value as Pet;
 
     pet.userId = this.currentUser.id;
-    pet.userRevision = this.currentUser.revision;
 
     this.petsService
       .addPet(pet)

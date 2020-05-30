@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 
-import com.cuidadomeupet.model.User;
+import com.cuidadomeupet.models.User;
 
 import org.eclipse.microprofile.jwt.Claims;
 
@@ -22,10 +22,11 @@ public class TokenUtils {
 
     public static String generateTokenString(User user) throws Exception {
 
+		String privateKeyLocation = "/META-INF/resources/privatekey.pem";
         JwtClaimsBuilder claims = getClaims(user);
-        PrivateKey privateKey = readPrivateKey("/META-INF/resources/privateKey.pem");
+        PrivateKey privateKey = readPrivateKey(privateKeyLocation);
 
-        return claims.jws().sign(privateKey);
+        return claims.jws().signatureKeyId(privateKeyLocation).sign(privateKey);
     }
 
     private static JwtClaimsBuilder getClaims(User user) {
@@ -35,9 +36,9 @@ public class TokenUtils {
 
         return Jwt.claims()
                   .issuer("http://cuidadomeupet.com/")
-                  .subject(String.valueOf(user.getId()))
-                  .upn(user.getEmail())
-                  .preferredUserName(user.getName())
+                  .subject(String.valueOf(user.id))
+                  .upn(user.email)
+                  .preferredUserName(user.name)
                   .audience("authentication")
                   .groups("user")
                   .issuedAt(currentTimeInSecs)

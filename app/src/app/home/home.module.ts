@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { FormerrorModule } from '../shared/components/formerror/formerror.module';
 import { HomeRoutingModule } from './home-routing.module';
@@ -26,7 +25,6 @@ import { SigninComponent } from './signin/signin.component';
     HttpClientModule,
     RouterModule,
     FormerrorModule,
-    FontAwesomeModule,
     HomeRoutingModule
   ],
   exports: [

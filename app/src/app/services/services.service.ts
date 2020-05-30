@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Service } from './service';
+import { Service } from '../core/models/service';
 
 const API_URL = "/api/services";
 
@@ -20,11 +20,11 @@ export class ServicesService {
   }
 
   updateService(service: Service) {
-    return this.http.put<Service>(API_URL + '/' + service.id + '/' + service.revision, service);
+    return this.http.put<Service>(API_URL + '/' + service.id, service);
   }
 
   deleteService(service: Service) {
-    return this.http.delete<Service>(API_URL + '/' + service.id + '/' + service.revision);
+    return this.http.delete<Service>(API_URL + '/' + service.id);
   }
 
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/core/auth/auth.service';
@@ -12,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
 
-  faUser = faUser;
   signinForm: FormGroup;
   returnUrl: string;
 

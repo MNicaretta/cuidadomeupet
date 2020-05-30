@@ -1,12 +1,12 @@
 {
 	"folders": [
-		{
-			"path": "app"
-		},
-		{
-			"path": "server"
-		}
-	],
+        {
+            "path": "app"
+        },
+        {
+            "path": "server"
+        }
+    ],
 	"settings": {
 		"java.configuration.updateBuildConfiguration": "interactive"
     },

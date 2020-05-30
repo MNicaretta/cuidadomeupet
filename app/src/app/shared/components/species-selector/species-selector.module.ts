@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { SpeciesSelectorComponent } from './species-selector.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { SpeciesService } from './species.service';
 
 @NgModule({
   declarations: [
@@ -11,10 +11,13 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     CommonModule,
-    NgbDropdownModule
+    HttpClientModule
   ],
   exports: [
     SpeciesSelectorComponent
+  ],
+  providers: [
+    SpeciesService
   ]
 })
 export class SpeciesSelectorModule { }

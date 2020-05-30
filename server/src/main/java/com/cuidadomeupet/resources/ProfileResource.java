@@ -1,7 +1,5 @@
 package com.cuidadomeupet.resources;
 
-import java.util.List;
-
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -13,12 +11,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import com.cuidadomeupet.model.Entity;
-import com.cuidadomeupet.model.Pet;
-import com.cuidadomeupet.model.Profile;
-import com.cuidadomeupet.model.User;
-import com.cuidadomeupet.services.PetServiceDefault;
-import com.cuidadomeupet.services.UserService;
+
+import com.cuidadomeupet.models.Profile;
+import com.cuidadomeupet.models.User;
+
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @RequestScoped
@@ -27,11 +23,11 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProfileResource {
     
-    @Inject
-    UserService userService;
+    // @Inject
+    // UserService userService;
 
-    @Inject
-    PetServiceDefault petService;
+    // @Inject
+    // PetServiceDefault petService;
 
     @Inject
     JsonWebToken jwt;
@@ -40,19 +36,19 @@ public class ProfileResource {
     @RolesAllowed({"user"})
     public Response getCurrent() throws Exception {
 
-        Integer id = Integer.parseInt(jwt.getSubject());
+        // Integer id = Integer.parseInt(jwt.getSubject());
 
-        Entity entity = new Entity();
-        entity.setId(id);
-        entity.setRevision(0);
+        // Entity entity = new Entity();
+        // entity.setId(id);
+        // entity.setRevision(0);
 
-        User user = userService.getUser(entity);
-        List<Pet> pets = petService.getPet(user);
+        // User user = userService.getUser(entity);
+        // List<Pet> pets = petService.getPet(user);
 
         Profile profile = new Profile();
 
-        profile.setUser(user);
-        profile.setPets(pets);
+        // profile.setUser(user);
+        // profile.setPets(pets);
 
         return Response.status(Status.OK).entity(profile).build();
     }
@@ -61,18 +57,18 @@ public class ProfileResource {
     @RolesAllowed({"user"})
     public Response updateUser(User user) throws Exception {
 
-        Integer id = Integer.parseInt(jwt.getSubject());
+        // Integer id = Integer.parseInt(jwt.getSubject());
 
-        User current = userService.getUser(new Entity(id, 0));
+        // User current = userService.getUser(new Entity(id, 0));
 
-        current.setName(user.getName());
-        current.setDescription(user.getDescription());
+        // current.setName(user.getName());
+        // current.setDescription(user.getDescription());
 
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            current.setPassword(user.getPassword());
-        }
+        // if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+        //     current.setPassword(user.getPassword());
+        // }
 
-        userService.updateUser(user);
+        // userService.updateUser(user);
 
         return Response.status(Status.OK).entity(user).build();
     }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { Species } from 'src/app/core/models/species';
+import { SpeciesService } from './species.service';
 
 @Component({
   selector: 'app-species-selector',
@@ -8,35 +10,44 @@ import { Species } from 'src/app/core/models/species';
 })
 export class SpeciesSelectorComponent implements OnInit {
 
+  allSpecies: Species[] = [];
   available: Species[] = [];
-  selected: Species[] = [];
 
-  constructor() { }
+  @Input() selected: string[] = [];
+  @Output() selectedChange = new EventEmitter<string[]>();
+
+  constructor(private speciesService: SpeciesService) { }
 
   ngOnInit(): void {
-    this.available.push({label: 'cachorro', value:'dog'},
-                        {label: 'gato', value:'cat'},
-                        {label: 'ave', value:'bird'});
+
+    this.speciesService
+      .getAvailableSpecies()
+      .subscribe(value => {
+        this.allSpecies = value;
+        this.allSpecies.sort((a, b) => a.label.localeCompare(b.label));
+        this.updateAvailable();
+      });
   }
 
   add(species: string) {
 
-    const index = this.available.findIndex(element => element.value === species);
-
-    if (index !== -1) {
-      this.available.push(...this.selected.splice(index, 1));
-    }
-
+    this.selected.push(species);
+    this.updateAvailable();
   }
 
   remove(species: string) {
 
-    const index = this.available.findIndex(element => element.value === species);
-
-    if (index !== -1) {
-      this.selected.push(...this.available.splice(index, 1));
-    }
-
+    this.selected.splice(this.selected.indexOf(species), 1);
+    this.updateAvailable();
   }
 
+  updateAvailable() {
+
+    this.available = this.allSpecies.filter(el => !this.selected.includes(el.value));
+  }
+
+  getSpeciesLabel(value: string) {
+
+    return this.allSpecies.find(species => species.value === value)?.label ?? 'erro';
+  }
 }

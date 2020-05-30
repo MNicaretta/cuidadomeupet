@@ -3,7 +3,8 @@ package com.cuidadomeupet.resources;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,9 +16,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import com.cuidadomeupet.model.Entity;
-import com.cuidadomeupet.model.Pet;
-import com.cuidadomeupet.services.PetService;
+
+import com.cuidadomeupet.models.Pet;
+import com.cuidadomeupet.models.User;
 
 @RequestScoped
 @Path("pets")
@@ -25,53 +26,45 @@ import com.cuidadomeupet.services.PetService;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PetResource {
 
-    @Inject
-    PetService service;
-
     @POST
-    public Response addPet(Pet pet) throws Exception {
+    @Transactional
+    public Response addPet(@Valid Pet pet) throws Exception {
 
-        service.addPet(pet);
+        pet.setUser(User.findById(pet.userId));
+        pet.persist();
 
         return Response.status(Status.OK).entity(pet).build();
     }
 
     @PUT
-    @Path("{id}/{revision}")
-    public Response updatePet(@PathParam("id") Integer id, @PathParam("revision") Integer revision, Pet pet) throws Exception {
+    @Path("{id}")
+    @Transactional
+    public Response updatePet(@PathParam("id") Long id, @Valid Pet input) throws Exception {
 
-        pet.setId(id);
-        pet.setRevision(revision);
-
-        service.updatePet(pet);
+        Pet pet = Pet.findById(id);
+        pet.name = input.name;
+        pet.additionalInfo = input.additionalInfo;
 
         return Response.status(Status.OK).entity(pet).build();
     }
 
     @DELETE
-    @Path("{id}/{revision}")
-    public Response deletePet(@PathParam("id") Integer id, @PathParam("revision") Integer revision) throws Exception {
+    @Path("{id}")
+    @Transactional
+    public Response deletePet(@PathParam("id") Long id) throws Exception {
 
-        Entity entity = new Entity();
-        entity.setId(id);
-        entity.setRevision(revision);
+        Pet pet = Pet.findById(id);
 
-        Pet pet = service.getPet(entity);
-
-        service.deletePet(pet);
+        pet.delete();
 
         return Response.status(Status.OK).entity(pet).build();
     }
 
     @GET
-    @Path("{id}/{revision}")
-    public Response getPet(@PathParam("id") Integer id, @PathParam("revision") Integer revision) throws Exception {
+    @Path("{id}")
+    public Response getPet(@PathParam("id") Long id) throws Exception {
 
-        Entity entity = new Entity();
-        entity.setId(id);
-        entity.setRevision(revision);
-
-        Pet pet = service.getPet(entity);
+        Pet pet = Pet.findById(id);
 
         return Response.status(Status.OK).entity(pet).build();
     }
@@ -79,7 +72,7 @@ public class PetResource {
     @GET
     public Response getPets() throws Exception {
 
-        List<Pet> pets = service.getPets();
+        List<Pet> pets = Pet.listAll();
 
         return Response.status(Status.OK).entity(pets).build();
     }

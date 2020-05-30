@@ -1,6 +1,5 @@
 export interface User {
-  id: number | undefined,
-  revision: number | undefined,
+  id?: number,
   name: string,
   email: string,
   password: string,

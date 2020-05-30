@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServicesService } from '../services.service';
 import { Router } from '@angular/router';
-import { Service } from '../service';
+import { Service } from '../../core/models/service';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Species } from 'src/app/core/models/species';
 
 @Component({
   selector: 'app-services-form',
@@ -12,15 +13,18 @@ import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ServicesFormComponent implements OnInit {
 
-  servicesForm: FormGroup;
-
   hoveredDate: NgbDate | null = null;
+
+  price: number;
+
+  additionalInfo: string;
 
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
 
+  selectedSpecies: Species[] = [];
+
   constructor(
-    private formBuilder: FormBuilder,
     private servicesService: ServicesService,
     private router: Router,
     private calendar: NgbCalendar
@@ -28,15 +32,6 @@ export class ServicesFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.servicesForm = this.formBuilder.group({
-      name: [
-        '',
-        [Validators.required]
-      ],
-      additionalInfo: [
-        ''
-      ]
-    });
 
     this.fromDate = this.calendar.getToday();
     this.toDate = this.calendar.getNext(this.calendar.getToday(), 'd', 10);
@@ -44,12 +39,21 @@ export class ServicesFormComponent implements OnInit {
   }
 
   save(): void {
-    const service = { ...this.servicesForm.value, userId: 2 } as Service;
+    const service: Service = {
+      price: this.price,
+      state: "ACTIVE",
+      type: "HOSTING",
+      additionalInfo: this.additionalInfo,
+      startDate: new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day),
+      endDate: new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day),
+      userId: 1,
+      species: this.selectedSpecies
+    };
 
     this.servicesService
       .addService(service)
       .subscribe(
-        (value) => this.router.navigate(['services']),
+        () => this.router.navigate(['services']),
         err => console.error(err)
       );
   }
@@ -80,5 +84,4 @@ export class ServicesFormComponent implements OnInit {
   isRange(date: NgbDate) {
     return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
   }
-
 }
