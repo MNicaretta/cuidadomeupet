@@ -27,9 +27,9 @@ nb-configuration.xml
 *.orig
 *.rej
 
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-release.properties
+# Gradle
+.gradle/
+build/
+
+#build
+buildNative.bat

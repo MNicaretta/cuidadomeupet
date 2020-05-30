@@ -1,0 +1,39 @@
+<header>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['']">
+        <img src="/assets/img/logo.png" height="56px">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['services']">Serviços</a>
+          </li>
+          <li class="nav-item active" *ngIf="!userName; else profile">
+            <a class="nav-link" [routerLink]="['signin']">Login</a>
+          </li>
+          <li class="nav-item active" *ngIf="!userName">
+            <a class="nav-link" [routerLink]="['signup']">Cadastrar-se</a>
+          </li>
+          <ng-template #profile>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle btn active" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                {{userName}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" [routerLink]="['profile']">Perfil</a>
+                <a class="dropdown-item" (click)="logout()">Sair</a>
+              </div>
+            </li>
+          </ng-template>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

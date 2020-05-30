@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Espécies</h5>
+    <select id="speciesSelect" class="form-control" (change)="add($event.target.value); $event.target.value = ''">
+      <option value="" disabled selected>Adicionar espécie</option>
+      <option *ngFor="let species of available" [value]="species.value">{{ species.label }}</option>
+    </select>
+    <table class="table">
+      <tr *ngFor="let species of selected">
+        <td>
+          {{ getSpeciesLabel(species) }}
+          <i class="fa fa-trash-o float-right btn" (click)="remove(species)"></i>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

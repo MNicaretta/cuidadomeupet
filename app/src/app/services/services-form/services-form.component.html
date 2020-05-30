@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Tipo</label>
+      <select class="form-control">
+        <option selected>Hospedagem</option>
+        <option>PetSitter</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Preço</label>
+      <input (change)="price = $event.target.value" [value]="price" type="number" class="form-control" placeholder="Preço">
+    </div>
+    <div class="form-group">
+      <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+      </ngb-datepicker>
+      <ng-template #t let-date let-focused="focused">
+        <span class="custom-day"
+              [class.focused]="focused"
+              [class.range]="isRange(date)"
+              [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null">
+          {{ date.day }}
+        </span>
+      </ng-template>
+    </div>
+  </div>
+  <div class="form-group">
+    <app-species-selector [selected]="selectedSpecies" (selectedChanged)="selectedSpecies = $event"></app-species-selector>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label>Tamanho</label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox">
+          <label class="form-check-label col-md-4">Pequeno</label>
+          <input class="form-check-input" type="checkbox">
+          <label class="form-check-label col-md-4">Médio</label>
+          <input class="form-check-input" type="checkbox">
+          <label class="form-check-label col-md-4">Grande</label>
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Sexo</label>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox">
+          <label class="form-check-label col-md-4">Masculino</label>
+          <input class="form-check-input" type="checkbox">
+          <label class="form-check-label col-md-4">Feminino</label>
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+      <label>Observações</label>
+      <textarea (change)="additionalInfo = $event.target.value" [value]="additionalInfo" class="form-control" rows="3"></textarea>
+    </div>
+  </div>
+  <button type="button" (click)="save()" class="btn btn-primary">Salvar</button>
+  <button type="button" (click)="cancel()" class="btn btn-warning">Cancelar</button>
+</div>

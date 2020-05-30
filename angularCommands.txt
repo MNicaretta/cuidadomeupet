@@ -1,0 +1,8 @@
+angular (rodar dentro do projeto/app)
+(gerar módulo) - ng generate module {nome do módulo}
+(gerar component) - ng generate component {nome do componente} home/signup
+(gerar serviço) - ng generate service + diretório
+(subir projeto) - ng serve
+
+vscode
+(comentar trecho de código) - ctrl + ;
