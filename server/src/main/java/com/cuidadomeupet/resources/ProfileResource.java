@@ -1,8 +1,11 @@
 package com.cuidadomeupet.resources;
 
+import java.util.List;
+
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.cuidadomeupet.models.Pet;
 import com.cuidadomeupet.models.Profile;
 import com.cuidadomeupet.models.User;
 
@@ -23,12 +27,6 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProfileResource {
     
-    // @Inject
-    // UserService userService;
-
-    // @Inject
-    // PetServiceDefault petService;
-
     @Inject
     JsonWebToken jwt;
 
@@ -36,40 +34,35 @@ public class ProfileResource {
     @RolesAllowed({"user"})
     public Response getCurrent() throws Exception {
 
-        // Integer id = Integer.parseInt(jwt.getSubject());
+        Long id = Long.parseLong(jwt.getSubject());
 
-        // Entity entity = new Entity();
-        // entity.setId(id);
-        // entity.setRevision(0);
-
-        // User user = userService.getUser(entity);
-        // List<Pet> pets = petService.getPet(user);
+        User user = User.findById(id);
+        List<Pet> pets = Pet.findByUser(user);
 
         Profile profile = new Profile();
 
-        // profile.setUser(user);
-        // profile.setPets(pets);
+        profile.user = user;
+        profile.pets = pets;
 
         return Response.status(Status.OK).entity(profile).build();
     }
 
     @POST
     @RolesAllowed({"user"})
-    public Response updateUser(User user) throws Exception {
+    @Transactional
+    public Response updateCurrent(User user) throws Exception {
 
-        // Integer id = Integer.parseInt(jwt.getSubject());
+        Long id = Long.parseLong(jwt.getSubject());
 
-        // User current = userService.getUser(new Entity(id, 0));
+        User current = User.findById(id);
 
-        // current.setName(user.getName());
-        // current.setDescription(user.getDescription());
+        current.name = user.name;
+        current.description = user.description;
 
-        // if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-        //     current.setPassword(user.getPassword());
-        // }
+        if (user.password != null && !user.password.isEmpty()) {
+            current.password = user.password;
+        }
 
-        // userService.updateUser(user);
-
-        return Response.status(Status.OK).entity(user).build();
+        return Response.status(Status.OK).entity(current).build();
     }
 }

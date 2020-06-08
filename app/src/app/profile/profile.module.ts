@@ -1,16 +1,15 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
-import { CommonModule, registerLocaleData } from '@angular/common';
-import localeBr from '@angular/common/locales/pt';
-import { ProfileComponent } from './profile.component';
-import { ProfileRoutingModule } from './profile-routing.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileService } from './profile.service';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+
+import { ProfileComponent } from './profile.component';
+import { ProfileRoutingModule } from './profile-routing.module';
+import { ProfileService } from './profile.service';
 import { ProfileResolver } from './profile.resolver';
 import { CoreModule } from '../core/core.module';
 import { PetsService } from '../pets/pets.service';
-registerLocaleData(localeBr, 'br');
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -26,8 +25,7 @@ registerLocaleData(localeBr, 'br');
   providers: [
     ProfileService,
     PetsService,
-    ProfileResolver,
-    { provide: LOCALE_ID, useValue: 'br' }
+    ProfileResolver
   ]
 })
 export class ProfileModule { }

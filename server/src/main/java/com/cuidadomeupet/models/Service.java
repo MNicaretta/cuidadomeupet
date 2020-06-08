@@ -19,9 +19,13 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Entity(name = "services")
 public class Service extends PanacheEntity {
 
-    public static enum Type {
-        SITTING,
-        HOSTING
+    public static enum Type implements Labelable {
+        SITTING {
+            public String label() { return "Cuidados Domiciliares"; }
+        },
+        HOSTING {
+            public String label() { return "Hotelaria"; }
+        };
     }
 
     public static enum State {

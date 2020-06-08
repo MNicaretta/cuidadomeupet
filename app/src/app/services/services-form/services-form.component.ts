@@ -4,7 +4,7 @@ import { ServicesService } from '../services.service';
 import { Router } from '@angular/router';
 import { Service } from '../../core/models/service';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { Species } from 'src/app/core/models/species';
+import { EnumMap } from 'src/app/core/models/enum-map';
 
 @Component({
   selector: 'app-services-form',
@@ -22,7 +22,7 @@ export class ServicesFormComponent implements OnInit {
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
 
-  selectedSpecies: Species[] = [];
+  selectedSpecies: EnumMap[] = [];
 
   constructor(
     private servicesService: ServicesService,

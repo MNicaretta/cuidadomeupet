@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 import { ProfileService } from './profile.service';
 import { User } from '../core/models/user';
-import { ActivatedRoute } from '@angular/router';
-import { Pet } from '../pets/pet';
 import { Profile } from '../core/models/profile';
+import { Pet } from '../pets/pet';
 import { PetsService } from '../pets/pets.service';
 
 @Component({

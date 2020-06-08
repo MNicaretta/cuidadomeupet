@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.models.Service;
 import com.cuidadomeupet.models.User;
+import com.cuidadomeupet.utils.EnumUtilities;
 
 @RequestScoped
 @Path("services")
@@ -77,5 +78,12 @@ public class ServiceResource {
         List<Service> services = Service.listAll();
 
         return Response.status(Status.OK).entity(services).build();
+    }
+
+    @GET
+    @Path("types")
+    public Response getServiceTypes() throws Exception {
+
+        return Response.status(Status.OK).entity(EnumUtilities.toList(Service.Type.class)).build();
     }
 }
