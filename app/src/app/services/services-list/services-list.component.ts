@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Service } from '../../core/models/service';
+import { ServiceWrapper } from '../../core/models/service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,15 +9,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ServicesListComponent implements OnInit {
 
-  pets: Service[];
+  list: ServiceWrapper[];
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.pets = this.activatedRoute.snapshot.data['services'];
+      this.list = this.activatedRoute.snapshot.data['services'];
     });
   }
 
-
+  addService() {
+    this.router.navigate(['services', 'add'])
+  }
 }

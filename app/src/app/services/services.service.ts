@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Service } from '../core/models/service';
+import { Service, ServiceWrapper } from '../core/models/service';
 import { EnumMap } from '../core/models/enum-map';
 
 const API_URL = "/api/services";
@@ -13,7 +13,7 @@ export class ServicesService {
   constructor(private http: HttpClient) { }
 
   getServices() {
-    return this.http.get<Service[]>(API_URL);
+    return this.http.get<ServiceWrapper[]>(API_URL);
   }
 
   addService(service: Service) {

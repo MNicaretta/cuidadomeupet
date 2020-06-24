@@ -1,12 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { Component, OnInit, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
 import { EnumMap } from 'src/app/core/models/enum-map';
 import { ServicesService } from 'src/app/services/services.service';
 
 @Component({
   selector: 'app-service-types-selector',
   templateUrl: './service-types-selector.component.html',
-  styleUrls: ['./service-types-selector.component.scss']
+  styleUrls: ['./service-types-selector.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ServiceTypesSelectorComponent),
+      multi: true
+    }
+  ]
 })
 export class ServiceTypesSelectorComponent implements OnInit, ControlValueAccessor {
 

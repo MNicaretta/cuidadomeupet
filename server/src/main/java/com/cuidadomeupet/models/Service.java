@@ -72,4 +72,8 @@ public class Service extends PanacheEntity {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getUserName() {
+        return this.user.name;
+    }
 }

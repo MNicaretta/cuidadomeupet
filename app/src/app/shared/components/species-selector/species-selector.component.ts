@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { Component, OnInit, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { EnumMap } from 'src/app/core/models/enum-map';
 import { SpeciesService } from './species.service';
@@ -7,7 +7,14 @@ import { SpeciesService } from './species.service';
 @Component({
   selector: 'app-species-selector',
   templateUrl: './species-selector.component.html',
-  styleUrls: ['./species-selector.component.scss']
+  styleUrls: ['./species-selector.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SpeciesSelectorComponent),
+      multi: true
+    }
+  ]
 })
 export class SpeciesSelectorComponent implements OnInit, ControlValueAccessor {
 

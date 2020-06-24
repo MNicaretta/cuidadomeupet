@@ -47,6 +47,18 @@ public class ProfileResource {
         return Response.status(Status.OK).entity(profile).build();
     }
 
+    @GET
+    @Path("user")
+    @RolesAllowed({"user"})
+    public Response getCurrentUser() throws Exception {
+
+        Long id = Long.parseLong(jwt.getSubject());
+
+        User user = User.findById(id);
+
+        return Response.status(Status.OK).entity(user).build();
+    }
+
     @POST
     @RolesAllowed({"user"})
     @Transactional

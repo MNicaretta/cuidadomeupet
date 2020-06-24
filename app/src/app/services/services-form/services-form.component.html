@@ -1,33 +1,19 @@
-<div class="container">
+<form class="container border border-light p-5" [formGroup]="servicesForm" (ngSubmit)="save()">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>Tipo</label>
-      <select class="form-control">
-        <option selected>Hospedagem</option>
-        <option>PetSitter</option>
-      </select>
+      <app-service-types-selector formControlName="type"></app-service-types-selector>
     </div>
     <div class="form-group col-md-6">
       <label>Preço</label>
-      <input (change)="price = $event.target.value" [value]="price" type="number" class="form-control" placeholder="Preço">
+      <input formControlName="price" type="number" class="form-control" placeholder="Preço">
     </div>
     <div class="form-group">
-      <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
-      </ngb-datepicker>
-      <ng-template #t let-date let-focused="focused">
-        <span class="custom-day"
-              [class.focused]="focused"
-              [class.range]="isRange(date)"
-              [class.faded]="isHovered(date) || isInside(date)"
-              (mouseenter)="hoveredDate = date"
-              (mouseleave)="hoveredDate = null">
-          {{ date.day }}
-        </span>
-      </ng-template>
+      <app-date-range-picker formControlName="dateRange"></app-date-range-picker>
     </div>
   </div>
   <div class="form-group">
-    <!-- <app-species-selector [selected]="selectedSpecies" (selectedChanged)="selectedSpecies = $event"></app-species-selector> -->
+    <app-species-selector formControlName="species"></app-species-selector>
   </div>
   <div class="form-row">
     <div class="form-group col-md-4">
@@ -52,9 +38,9 @@
     </div>
     <div class="form-group col-md-12">
       <label>Observações</label>
-      <textarea (change)="additionalInfo = $event.target.value" [value]="additionalInfo" class="form-control" rows="3"></textarea>
+      <textarea formControlName="additionalInfo" class="form-control" rows="3"></textarea>
     </div>
   </div>
-  <button type="button" (click)="save()" class="btn btn-primary">Salvar</button>
-  <button type="button" (click)="cancel()" class="btn btn-warning">Cancelar</button>
-</div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <button type="button" (click)="cancel()" class="btn btn-secondary">Cancelar</button>
+</form>

@@ -1,5 +1,6 @@
 package com.cuidadomeupet.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.models.Service;
+import com.cuidadomeupet.models.ServiceWrapper;
 import com.cuidadomeupet.models.User;
 import com.cuidadomeupet.utils.EnumUtilities;
 
@@ -77,7 +79,18 @@ public class ServiceResource {
 
         List<Service> services = Service.listAll();
 
-        return Response.status(Status.OK).entity(services).build();
+        List<ServiceWrapper> result = new ArrayList<>();
+
+        services.forEach(s -> {
+            ServiceWrapper wrapper = new ServiceWrapper();
+            wrapper.service = s;
+            wrapper.userName = s.getUserName();
+            wrapper.serviceType = s.type.label();
+
+            result.add(wrapper);
+        });
+
+        return Response.status(Status.OK).entity(result).build();
     }
 
     @GET

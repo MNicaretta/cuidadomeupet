@@ -108,7 +108,7 @@ export class ProfileComponent implements OnInit {
     this.profileService
       .updateUser(user)
       .subscribe(
-        (value) => console.log(value),
+        _ => alert('Usuário atualizado!'),
         err => console.error(err)
       );
   }

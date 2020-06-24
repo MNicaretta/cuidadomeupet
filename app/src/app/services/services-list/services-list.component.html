@@ -1,1 +1,21 @@
-<p>services-list works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Preço</th>
+      <th scope="col">Período</th>
+      <th scope="col">Usuário</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let wrapper of list">
+      <th scope="row">{{ wrapper.service.id }}</th>
+      <td>{{ wrapper.serviceType }}</td>
+      <td>{{ wrapper.service.price | currency:'BRL' }}</td>
+      <td>{{ wrapper.service.startDate | date }} até {{ wrapper.service.endDate | date }}</td>
+      <td>{{ wrapper.userName }}</td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-primary my-4 btn-block" type="button" (click)="addService()">Cadastrar</button>

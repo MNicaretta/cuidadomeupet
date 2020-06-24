@@ -10,25 +10,23 @@ const routes: Routes = [
   {
     path: '',
     component: ServicesComponent,
-    canActivate: [
-    AuthGuard
-    ],
     children: [
       {
         path: '',
         component: ServicesListComponent,
-        resolve: { services: ServicesListResolver }
+        resolve: { services: ServicesListResolver },
       },
       {
         path: 'add',
-        component: ServicesFormComponent
-      }
-    ]
-  }
+        component: ServicesFormComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ServicesRoutingModule { }
+export class ServicesRoutingModule {}

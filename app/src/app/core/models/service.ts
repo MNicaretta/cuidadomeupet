@@ -12,3 +12,9 @@ export interface Service {
   userId: number,
   species: EnumMap[]
 }
+
+export interface ServiceWrapper {
+  service: Service,
+  userName: string,
+  serviceType: string
+}
