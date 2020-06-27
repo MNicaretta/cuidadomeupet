@@ -71,7 +71,17 @@ public class ServiceResource {
 
         Service service = Service.findById(id);
 
-        return Response.status(Status.OK).entity(service).build();
+        ServiceWrapper wrapper = new ServiceWrapper();
+        wrapper.service = service;
+        wrapper.userName = service.getUserName();
+        wrapper.serviceType = service.type.label();
+        wrapper.species = new ArrayList<>();
+        
+        service.species.forEach(species -> {
+            wrapper.species.add(species.label());
+        });
+
+        return Response.status(Status.OK).entity(wrapper).build();
     }
 
     @GET

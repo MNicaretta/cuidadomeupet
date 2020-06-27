@@ -22,4 +22,8 @@ export class ServicesListComponent implements OnInit {
   addService() {
     this.router.navigate(['services', 'add'])
   }
+
+  viewService(wrapper: ServiceWrapper) {
+    this.router.navigate(['services', 'view', wrapper.service.id]);
+  }
 }
