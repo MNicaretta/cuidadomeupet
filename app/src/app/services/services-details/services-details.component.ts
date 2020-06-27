@@ -22,7 +22,7 @@ export class ServicesDetailsComponent implements OnInit {
     private tokenService: TokenService,
     private ordersService: OrdersService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

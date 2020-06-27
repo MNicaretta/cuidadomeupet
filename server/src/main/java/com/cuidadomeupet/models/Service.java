@@ -76,4 +76,8 @@ public class Service extends PanacheEntity {
     public String getUserName() {
         return this.user.name;
     }
+
+    public static List<Service> findByUser(User user) {
+        return find("user", user).list();
+    }
 }

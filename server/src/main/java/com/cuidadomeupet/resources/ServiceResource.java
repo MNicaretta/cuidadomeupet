@@ -3,6 +3,7 @@ package com.cuidadomeupet.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.validation.Valid;

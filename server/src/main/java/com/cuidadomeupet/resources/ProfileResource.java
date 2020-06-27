@@ -15,8 +15,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.cuidadomeupet.models.Order;
 import com.cuidadomeupet.models.Pet;
 import com.cuidadomeupet.models.Profile;
+import com.cuidadomeupet.models.Service;
 import com.cuidadomeupet.models.User;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -38,11 +40,15 @@ public class ProfileResource {
 
         User user = User.findById(id);
         List<Pet> pets = Pet.findByUser(user);
+        List<Order> clientOrders = Order.findByUser(user);
+        List<Order> providerOrders = Order.findByServices(Service.findByUser(user));
 
         Profile profile = new Profile();
 
         profile.user = user;
         profile.pets = pets;
+        profile.clientOrders = clientOrders;
+        profile.providerOrders = providerOrders;
 
         return Response.status(Status.OK).entity(profile).build();
     }

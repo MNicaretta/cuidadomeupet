@@ -16,5 +16,7 @@ export interface Service {
 export interface ServiceWrapper {
   service: Service,
   userName: string,
-  serviceType: string
+  serviceType: string,
+  species: string[]
 }
+

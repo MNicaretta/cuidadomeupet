@@ -5,7 +5,7 @@
       <div class="d-flex flex-column">
         <h3 class="card-title">{{ wrapper.userName }}</h3>
         <h4>{{ wrapper.service.price | currency:'BRL' }}</h4>
-        <h4>{{ wrapper.service.serviceType }}</h4>
+        <h4>{{ wrapper.serviceType }}</h4>
         <h5 class="card-title">Espécies</h5>
         <div class="d-flex flex-column flex-wrap">
           <span *ngFor="let species of wrapper.species">{{ species }}</span>
