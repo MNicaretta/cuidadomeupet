@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SpeciesSelectorComponent } from './species-selector.component';
+import { SpeciesListSelectorComponent } from './species-list-selector.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SpeciesService } from './species.service';
 
 @NgModule({
   declarations: [
-    SpeciesSelectorComponent
+    SpeciesListSelectorComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule
   ],
   exports: [
-    SpeciesSelectorComponent
+    SpeciesListSelectorComponent
   ],
   providers: [
     SpeciesService
   ]
 })
-export class SpeciesSelectorModule { }
+export class SpeciesListSelectorModule { }

@@ -69,5 +69,13 @@ public class Order extends PanacheEntity {
     public static List<Order> findByServices(List<Service> services) {
         return find("service", services).list();
     }
+
+	public String getUserName() {
+		return user.name;
+	}
+
+	public String getServiceUser() {
+		return service.getUserName();
+	}
     
 }

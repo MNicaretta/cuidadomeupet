@@ -7,7 +7,7 @@ import { ServicesComponent } from './services.component';
 import { ServicesListComponent } from './services-list/services-list.component';
 import { ServicesFormComponent } from './services-form/services-form.component';
 import { ServicesRoutingModule } from './services-routing.module';
-import { SpeciesSelectorModule } from '../shared/components/species-selector/species-selector.module';
+import { SpeciesListSelectorModule } from '../shared/components/species-list-selector/species-list-selector.module';
 import { ServiceTypesSelectorModule } from '../shared/components/service-types-selector/service-types-selector.module';
 import { DateRangePickerModule } from '../shared/components/date-range-picker/date-range-picker.module';
 import { ServicesDetailsComponent } from './services-details/services-details.component';
@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     ServicesRoutingModule,
-    SpeciesSelectorModule,
+    SpeciesListSelectorModule,
     ServiceTypesSelectorModule,
     DateRangePickerModule,
     NgbDatepickerModule,
