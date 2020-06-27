@@ -1,0 +1,19 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Endereço</th>
+      <th scope="col">Tamanho</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">CEP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let address of addresses">
+      <th scope="row">{{ address.address }}</th>
+      <td>{{ address.size }}</td>
+      <td>{{ address.type }}</td>
+      <td>{{ address.zip }}</td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-primary my-4 btn-block" type="button" (click)="addAddress()">Cadastrar</button>

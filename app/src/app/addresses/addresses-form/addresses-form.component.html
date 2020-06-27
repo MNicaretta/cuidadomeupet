@@ -1,0 +1,25 @@
+<form class="border border-light p-5" [formGroup]="addressesForm" (ngSubmit)="save()">
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <label for="validationDefault01">Endereço</label>
+      <input formControlName="address" type="text" class="form-control" id="validationDefault01" placeholder="Endereço" required>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <label for="validationDefault02">Tamanho</label>
+      <input formControlName="size" type="text" class="form-control" id="validationDefault02" placeholder="Tamanho" required>
+    </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationDefault03">Tipo</label>
+        <input formControlName="type" type="text" class="form-control" id="validationDefault03" placeholder="Tipo" required>
+      </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-3 mb-3">
+      <label for="validationDefault04">CEP</label>
+      <input formControlName="zip" type="text" class="form-control" id="validationDefault04" placeholder="xxxxx-xxx" required>
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="save()" type="submit">Cadastrar</button>
+</form>
