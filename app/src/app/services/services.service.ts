@@ -3,17 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { Service, ServiceWrapper } from '../core/models/service';
 import { EnumMap } from '../core/models/enum-map';
 
-const API_URL = "/api/services";
+const API_URL = '/api/services';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServicesService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getServices() {
     return this.http.get<ServiceWrapper[]>(API_URL);
+  }
+
+  getService(id: number) {
+    return this.http.get<ServiceWrapper>(API_URL + '/' + id);
   }
 
   addService(service: Service) {

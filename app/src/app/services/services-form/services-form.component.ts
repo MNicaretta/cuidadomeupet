@@ -62,7 +62,7 @@ export class ServicesFormComponent implements OnInit {
       startDate: this.servicesForm.value['dateRange']['start'],
       endDate: this.servicesForm.value['dateRange']['end'],
       userId: this.currentUser.id,
-      species: this.servicesForm.value['selectedSpecies'],
+      species: this.servicesForm.value['species'],
       additionalInfo: this.servicesForm.value['additionalInfo']
     };
 
