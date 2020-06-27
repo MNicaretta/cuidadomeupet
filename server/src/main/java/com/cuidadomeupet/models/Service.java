@@ -42,7 +42,7 @@ public class Service extends PanacheEntity {
 
     public Double distance;
 
-    @Column(name = "additional_info")
+    @Column(name = "additional_info", columnDefinition="TEXT")
     public String additionalInfo;
 
     @Column(nullable = false)
