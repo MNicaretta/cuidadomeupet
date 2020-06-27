@@ -52,6 +52,7 @@ public class TokenUtils {
     }
 
     private static PrivateKey readPrivateKey(final String pemResName) throws Exception {
+        System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
         try (InputStream contentIS = TokenUtils.class.getResourceAsStream(pemResName)) {
             byte[] tmp = new byte[4096];
             int length = contentIS.read(tmp);

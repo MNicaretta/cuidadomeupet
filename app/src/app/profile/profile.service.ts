@@ -5,13 +5,19 @@ import { Profile } from '../core/models/profile';
 
 const API_URL = "/api/profile";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
   getCurrent() {
     return this.http.get<Profile>(API_URL);
+  }
+
+  getCurrentUser() {
+    return this.http.get<User>(API_URL + "/user")
   }
 
   updateUser(user: User) {

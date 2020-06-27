@@ -1,0 +1,20 @@
+<div class="py-md-3 pr-md-5 pl-md-5 bd-content">
+  <h1 class="bd-title" id="content">Sobre os Autores</h1>
+
+  <p>CuidaDoMeuPet é um projeto desenvolvido para a cadeira de Projeto Integrador II dos cursos de Engenharia de Computação e Engenharia de Software da UNIVATES.</p>
+
+  <div class="list-group mb-3">
+
+      <a *ngFor="let author of authors" class="list-group-item list-group-item-action" [href]="getLink(author)" target="_blank">
+        <img [src]="getIcon(author)" [alt]="getAt(author)" width="32" height="32" class="rounded mr-2">
+        <span>
+          <strong>{{ author.name }}</strong> {{ getAt(author) }}
+        </span>
+        <br>
+        <small>{{ author.description }}</small>
+      </a>
+
+  </div>
+
+  <p>Participe do desenvolvimento do CuidaDoMeuPet <a href="https://github.com/MNicaretta/cuidadomeupet/issues/new" target="_blank">abrindo uma requisição de melhoria</a>.
+</div>

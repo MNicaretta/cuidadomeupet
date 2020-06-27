@@ -19,9 +19,13 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Entity(name = "services")
 public class Service extends PanacheEntity {
 
-    public static enum Type {
-        SITTING,
-        HOSTING
+    public static enum Type implements Labelable {
+        SITTING {
+            public String label() { return "Cuidados Domiciliares"; }
+        },
+        HOSTING {
+            public String label() { return "Hotelaria"; }
+        };
     }
 
     public static enum State {
@@ -38,7 +42,7 @@ public class Service extends PanacheEntity {
 
     public Double distance;
 
-    @Column(name = "additional_info")
+    @Column(name = "additional_info", columnDefinition="TEXT")
     public String additionalInfo;
 
     @Column(nullable = false)
@@ -67,5 +71,13 @@ public class Service extends PanacheEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getUserName() {
+        return this.user.name;
+    }
+
+    public static List<Service> findByUser(User user) {
+        return find("user", user).list();
     }
 }

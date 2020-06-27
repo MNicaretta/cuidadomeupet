@@ -1,4 +1,4 @@
-import { Species } from './species';
+import { EnumMap } from './enum-map';
 
 export interface Service {
   id?: number,
@@ -10,5 +10,13 @@ export interface Service {
   startDate: Date,
   endDate: Date,
   userId: number,
-  species: Species[]
+  species: EnumMap[]
 }
+
+export interface ServiceWrapper {
+  service: Service,
+  userName: string,
+  serviceType: string,
+  species: string[]
+}
+

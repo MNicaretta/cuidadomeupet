@@ -1,4 +1,4 @@
-export interface Species {
+export interface EnumMap {
   label: string,
   value: string
 }

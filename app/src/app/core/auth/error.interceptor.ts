@@ -20,6 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       if (err.status === 401) {
         // auto signout
         this.authService.signout();
+        alert('Sessão expirada!');
         location.reload(true);
       }
 

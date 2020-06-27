@@ -1,7 +1,9 @@
 package com.cuidadomeupet.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -18,7 +20,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.models.Service;
+import com.cuidadomeupet.models.ServiceWrapper;
 import com.cuidadomeupet.models.User;
+import com.cuidadomeupet.utils.EnumUtilities;
 
 @RequestScoped
 @Path("services")
@@ -68,7 +72,17 @@ public class ServiceResource {
 
         Service service = Service.findById(id);
 
-        return Response.status(Status.OK).entity(service).build();
+        ServiceWrapper wrapper = new ServiceWrapper();
+        wrapper.service = service;
+        wrapper.userName = service.getUserName();
+        wrapper.serviceType = service.type.label();
+        wrapper.species = new ArrayList<>();
+        
+        service.species.forEach(species -> {
+            wrapper.species.add(species.label());
+        });
+
+        return Response.status(Status.OK).entity(wrapper).build();
     }
 
     @GET
@@ -76,6 +90,24 @@ public class ServiceResource {
 
         List<Service> services = Service.listAll();
 
-        return Response.status(Status.OK).entity(services).build();
+        List<ServiceWrapper> result = new ArrayList<>();
+
+        services.forEach(s -> {
+            ServiceWrapper wrapper = new ServiceWrapper();
+            wrapper.service = s;
+            wrapper.userName = s.getUserName();
+            wrapper.serviceType = s.type.label();
+
+            result.add(wrapper);
+        });
+
+        return Response.status(Status.OK).entity(result).build();
+    }
+
+    @GET
+    @Path("types")
+    public Response getServiceTypes() throws Exception {
+
+        return Response.status(Status.OK).entity(EnumUtilities.toList(Service.Type.class)).build();
     }
 }

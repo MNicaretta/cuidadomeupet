@@ -1,5 +1,7 @@
 package com.cuidadomeupet.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,5 +38,9 @@ public class Pet extends PanacheEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public static List<Pet> findByUser(User user) {
+        return find("user", user).list();
     }
 }
