@@ -32,7 +32,7 @@ public class TokenUtils {
     private static JwtClaimsBuilder getClaims(User user) {
 
         long currentTimeInSecs = currentTimeInSecs();
-        long exp = currentTimeInSecs + 300;
+        long exp = currentTimeInSecs + 1800;
 
         return Jwt.claims()
                   .issuer("http://cuidadomeupet.com/")
@@ -52,7 +52,6 @@ public class TokenUtils {
     }
 
     private static PrivateKey readPrivateKey(final String pemResName) throws Exception {
-        System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
         try (InputStream contentIS = TokenUtils.class.getResourceAsStream(pemResName)) {
             byte[] tmp = new byte[4096];
             int length = contentIS.read(tmp);

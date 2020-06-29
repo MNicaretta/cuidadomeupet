@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceWrapper } from 'src/app/core/models/service';
+import { Service } from 'src/app/core/models/service';
 import { ServicesService } from '../services.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { Order } from 'src/app/core/models/order';
 import { TokenService } from 'src/app/core/auth/token.service';
 import { OrdersService } from 'src/app/orders/orders.service';
 
@@ -13,7 +12,7 @@ import { OrdersService } from 'src/app/orders/orders.service';
   styleUrls: ['./services-details.component.scss'],
 })
 export class ServicesDetailsComponent implements OnInit {
-  wrapper: ServiceWrapper;
+  service: Service;
   selected: Date;
 
   constructor(
@@ -28,7 +27,7 @@ export class ServicesDetailsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.servicesService
         .getService(params['id'])
-        .subscribe((service) => (this.wrapper = service));
+        .subscribe((service) => (this.service = service));
     });
   }
 
@@ -40,8 +39,8 @@ export class ServicesDetailsComponent implements OnInit {
 
   isRange(ngbDate: NgbDate) {
     const date = new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day);
-    const start = new Date(this.wrapper?.service.startDate);
-    const end = new Date(this.wrapper?.service.endDate);
+    const start = new Date(this.service?.startDate);
+    const end = new Date(this.service?.endDate);
 
     return date.getTime() >= start.getTime() && date.getTime() <= end.getTime();
   }
@@ -71,7 +70,7 @@ export class ServicesDetailsComponent implements OnInit {
     this.ordersService
       .addOrder({
         eventDate: this.selected,
-        serviceId: this.wrapper.service.id
+        serviceId: this.service.id
       })
       .subscribe(
         () => this.router.navigate(['services']),

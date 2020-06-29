@@ -14,4 +14,8 @@ export class OrdersService {
   addOrder(order: Order) {
     return this.http.post<Order>(API_URL, order);
   }
+
+  updateOrder(order: Order) {
+    return this.http.put<Order>(API_URL + "/" + order.id, order);
+  }
 }

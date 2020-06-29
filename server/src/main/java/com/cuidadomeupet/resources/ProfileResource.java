@@ -1,7 +1,5 @@
 package com.cuidadomeupet.resources;
 
-import java.util.List;
-
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -38,17 +36,12 @@ public class ProfileResource {
 
         Long id = Long.parseLong(jwt.getSubject());
 
-        User user = User.findById(id);
-        List<Pet> pets = Pet.findByUser(user);
-        List<Order> clientOrders = Order.findByUser(user);
-        List<Order> providerOrders = Order.findByServices(Service.findByUser(user));
-
         Profile profile = new Profile();
 
-        profile.user = user;
-        profile.pets = pets;
-        profile.clientOrders = clientOrders;
-        profile.providerOrders = providerOrders;
+        profile.user = User.findById(id);
+        profile.pets = Pet.findByUser(profile.user);
+        profile.clientOrders = Order.findByUser(profile.user);
+        profile.providerOrders = Order.findByServices(Service.findByUser(profile.user));
 
         return Response.status(Status.OK).entity(profile).build();
     }

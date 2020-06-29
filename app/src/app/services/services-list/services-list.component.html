@@ -10,12 +10,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let wrapper of list">
-      <td>{{ wrapper.serviceType }}</td>
-      <td>{{ wrapper.service.price | currency:'BRL' }}</td>
-      <td>{{ wrapper.service.startDate | date }} até {{ wrapper.service.endDate | date }}</td>
-      <td>{{ wrapper.userName }}</td>
-      <td><button class="btn btn-secondary" (click)="viewService(wrapper)">Visualizar</button></td>
+    <tr *ngFor="let service of services">
+      <td>{{ service.typeLabel }}</td>
+      <td>{{ service.price | currency:'BRL' }}</td>
+      <td>{{ service.startDate | date }} até {{ service.endDate | date }}</td>
+      <td>{{ service.userName }}</td>
+      <td><button class="btn btn-secondary" (click)="viewService(service)">Visualizar</button></td>
     </tr>
   </tbody>
 </table>

@@ -3,11 +3,11 @@ package com.cuidadomeupet.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -22,15 +22,17 @@ public class Order extends PanacheEntity {
         WAITING { public String label() { return "Aguardando aprovação"; } },
         APPROVED { public String label() { return "Aprovada"; } },
         CANCELED { public String label() { return "Cancelada"; } },
-        FINISHED { public String label() { return "Concluida"; } };
+        FINISHED { public String label() { return "Concluída"; } };
     }
 
     @Column(name = "created_date", nullable = false)
     @Temporal(TemporalType.DATE)
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date createdDate;
 
     @Column(name = "event_date", nullable = false)
     @Temporal(TemporalType.DATE)
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date eventDate;
 
     @Column(name = "total_value", nullable = false)
@@ -41,14 +43,14 @@ public class Order extends PanacheEntity {
     public State state;
 
     @JoinColumn(name = "service_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private Service service;
 
     @Column(name = "service_id", insertable = false, updatable = false)
     public Long serviceId;
 
     @JoinColumn(name = "user_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private User user;
 
     @Column(name = "user_id", insertable = false, updatable = false)
@@ -77,5 +79,8 @@ public class Order extends PanacheEntity {
 	public String getServiceUser() {
 		return service.getUserName();
 	}
-    
+
+    public String getStateLabel() {
+        return state.label();
+    }
 }

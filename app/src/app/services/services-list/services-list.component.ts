@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceWrapper } from '../../core/models/service';
+import { Service } from '../../core/models/service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,13 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ServicesListComponent implements OnInit {
 
-  list: ServiceWrapper[];
+  services: Service[];
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.list = this.activatedRoute.snapshot.data['services'];
+      this.services = this.activatedRoute.snapshot.data['services'];
     });
   }
 
@@ -23,7 +23,7 @@ export class ServicesListComponent implements OnInit {
     this.router.navigate(['services', 'add'])
   }
 
-  viewService(wrapper: ServiceWrapper) {
-    this.router.navigate(['services', 'view', wrapper.service.id]);
+  viewService(service: Service) {
+    this.router.navigate(['services', 'view', service.id]);
   }
 }

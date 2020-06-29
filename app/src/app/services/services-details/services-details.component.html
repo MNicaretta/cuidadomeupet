@@ -1,18 +1,18 @@
 <div class="container">
 
-  <div *ngIf="wrapper" class="card mt-4">
+  <div *ngIf="service" class="card mt-4">
     <div class="card-body d-flex justify-content-between" style="height: 307px;">
       <div class="d-flex flex-column">
-        <h3 class="card-title">{{ wrapper.userName }}</h3>
-        <h4>{{ wrapper.service.price | currency:'BRL' }}</h4>
-        <h4>{{ wrapper.serviceType }}</h4>
+        <h3 class="card-title">{{ service.userName }}</h3>
+        <h4>{{ service.price | currency:'BRL' }}</h4>
+        <h4>{{ service.typeLabel }}</h4>
         <h5 class="card-title">Espécies</h5>
         <div class="d-flex flex-column flex-wrap">
-          <span *ngFor="let species of wrapper.species">{{ species }}</span>
+          <span *ngFor="let species of service.speciesLabels">{{ species }}</span>
         </div>
       </div>
       <div class="w-50 d-flex flex-column justify-content-between">
-        <p class="card-text">{{ wrapper.service.additionalInfo }}</p>
+        <p class="card-text">{{ service.additionalInfo }}</p>
         <button class="btn btn-primary btn-block" (click)="schedule()">Agendar</button>
       </div>
       <div>

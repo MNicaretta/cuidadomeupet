@@ -10,6 +10,7 @@ import { ProfileService } from './profile.service';
 import { ProfileResolver } from './profile.resolver';
 import { CoreModule } from '../core/core.module';
 import { PetsService } from '../pets/pets.service';
+import { OrdersModule } from '../orders/orders.module';
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -20,7 +21,8 @@ import { PetsService } from '../pets/pets.service';
     RouterModule,
     HttpClientModule,
     ProfileRoutingModule,
-    CoreModule
+    CoreModule,
+    OrdersModule
   ],
   providers: [
     ProfileService,

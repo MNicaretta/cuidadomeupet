@@ -1,10 +1,7 @@
 package com.cuidadomeupet.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -20,9 +17,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.models.Service;
-import com.cuidadomeupet.models.ServiceWrapper;
 import com.cuidadomeupet.models.User;
 import com.cuidadomeupet.utils.EnumUtilities;
+
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 @RequestScoped
 @Path("services")
@@ -30,6 +28,9 @@ import com.cuidadomeupet.utils.EnumUtilities;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ServiceResource {
     
+    @Inject
+    JsonWebToken jwt;
+
     @POST
     @Transactional
     public Response addService(@Valid Service service) throws Exception {
@@ -72,36 +73,13 @@ public class ServiceResource {
 
         Service service = Service.findById(id);
 
-        ServiceWrapper wrapper = new ServiceWrapper();
-        wrapper.service = service;
-        wrapper.userName = service.getUserName();
-        wrapper.serviceType = service.type.label();
-        wrapper.species = new ArrayList<>();
-        
-        service.species.forEach(species -> {
-            wrapper.species.add(species.label());
-        });
-
-        return Response.status(Status.OK).entity(wrapper).build();
+        return Response.status(Status.OK).entity(service).build();
     }
 
     @GET
     public Response getServices() throws Exception {
 
-        List<Service> services = Service.listAll();
-
-        List<ServiceWrapper> result = new ArrayList<>();
-
-        services.forEach(s -> {
-            ServiceWrapper wrapper = new ServiceWrapper();
-            wrapper.service = s;
-            wrapper.userName = s.getUserName();
-            wrapper.serviceType = s.type.label();
-
-            result.add(wrapper);
-        });
-
-        return Response.status(Status.OK).entity(result).build();
+        return Response.status(Status.OK).entity(Service.listAll()).build();
     }
 
     @GET

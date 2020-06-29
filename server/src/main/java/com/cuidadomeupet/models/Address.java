@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -32,7 +31,7 @@ public class Address extends PanacheEntity {
     public String zip;
 
     @JoinColumn(name = "user_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private User user;
 
     @Column(name = "user_id", insertable = false, updatable = false)

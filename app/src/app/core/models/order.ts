@@ -2,8 +2,11 @@ export interface Order {
   id?: number,
   createdDate?: Date,
   eventDate: Date,
-  userId?: number,
   serviceId: number,
+  serviceUser?: string,
+  state?: string,
+  stateLabel?: string,
   totalValue?: number,
-  state?: string
+  userId?: number,
+  userName?: string
 }

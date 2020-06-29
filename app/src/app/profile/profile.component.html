@@ -7,7 +7,6 @@
             <div class="card-body">
               <div class="e-profile">
                 <div class="row">
-                  
                   <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                     <div class="text-center text-sm-left mb-2 mb-sm-0">
                       <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ currentUser.name }}</h4>
@@ -29,9 +28,17 @@
                     <a class="nav-link" [ngClass]="{ 'active':activeTab==='pets' }" (click)="tabActive('pets')"
                       data-toggle="tab">Meus pets</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='clientOrders' }" (click)="tabActive('clientOrders')"
+                      data-toggle="tab">Minhas ordens</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='providerOrders' }" (click)="tabActive('providerOrders')"
+                      data-toggle="tab">Meus serviços</a>
+                  </li>
                 </ul>
                 <div class="tab-content pt-3">
-                  <div class="tab-pane fade show active" id="profile" [ngClass]="{ 'active':activeTab==='profile'}">
+                  <div class="tab-pane fade show active" [ngClass]="{ 'active':activeTab==='profile'}">
                     <form class="form" [formGroup]="profileForm" (ngSubmit)="update()">
                       <div class="row">
                         <div class="col">
@@ -100,7 +107,7 @@
                       </div>
                     </form>
                   </div>
-                  <div class="tab-pane fade show active" id="pets" [ngClass]="{ 'active':activeTab==='pets'}">
+                  <div class="tab-pane fade show active" [ngClass]="{ 'active':activeTab==='pets'}">
                     <button class="btn btn-primary my-4 btn-block" data-toggle="collapse" href="#petRegisterForm"
                       type="button">Adicionar
                       pet</button>
@@ -134,6 +141,12 @@
                         </tr>
                       </tbody>
                     </table>
+                  </div>
+                  <div class="tab-pane fade show active" [ngClass]="{ 'active':activeTab==='clientOrders'}">
+                    <app-orders [orders]="profile.clientOrders" clientType="true"></app-orders>
+                  </div>
+                  <div class="tab-pane fade show active" [ngClass]="{ 'active':activeTab==='providerOrders'}">
+                    <app-orders [orders]="profile.providerOrders"></app-orders>
                   </div>
                 </div>
               </div>

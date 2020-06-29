@@ -2,6 +2,7 @@ package com.cuidadomeupet.models;
 
 import java.util.Date;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -42,6 +43,7 @@ public class User extends PanacheEntity {
     @CreationTimestamp
     @Temporal(TemporalType.DATE)
     @Column(name = "created_date")
+    @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date createdDate;
 
     public static User findByEmail(String email) {

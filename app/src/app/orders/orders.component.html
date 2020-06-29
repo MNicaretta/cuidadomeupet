@@ -1,0 +1,24 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Estado</th>
+      <th scope="col">Data</th>
+      <th scope="col">Valor</th>
+      <th scope="col">Usuário</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td class="align-middle">{{ order.stateLabel }}</td>
+      <td class="align-middle">{{ order.eventDate | date }}</td>
+      <td class="align-middle">{{ order.totalValue | currency:'BRL' }}</td>
+      <td class="align-middle">{{ getUser(order) }}</td>
+      <td>
+        <button (click)="approve(order)" *ngIf="!clientType && order.state === 'WAITING'" class="btn btn-primary mx-1">Aprovar</button>
+        <button (click)="reprove(order)" *ngIf="!clientType && order.state === 'WAITING'" class="btn btn-secondary mx-1">Rejeitar</button>
+        <button (click)="finish(order)" *ngIf="clientType && order.state === 'APPROVED'" class="btn btn-primary mx-1">Finalizar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

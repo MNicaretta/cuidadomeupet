@@ -1,22 +1,15 @@
-import { EnumMap } from './enum-map';
-
 export interface Service {
   id?: number,
-  type: string,
-  price: number,
-  distance?: number,
   additionalInfo?: string,
-  state: string,
-  startDate: Date,
+  distance?: number,
   endDate: Date,
+  price: number,
+  species: string[],
+  speciesLabels?: string[],
+  startDate: Date,
+  state: string,
+  type: string,
+  typeLabel?: string,
   userId: number,
-  species: EnumMap[]
+  userName?: string,
 }
-
-export interface ServiceWrapper {
-  service: Service,
-  userName: string,
-  serviceType: string,
-  species: string[]
-}
-

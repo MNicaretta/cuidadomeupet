@@ -1,13 +1,10 @@
 package com.cuidadomeupet.resources;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
-import javax.transaction.Transactional;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -58,10 +55,10 @@ public class OrderResource {
     @PUT
     @Path("{id}")
     @Transactional
-    public Response updateOrder(@PathParam("id") Long id, @Valid Order input) throws Exception {
+    public Response updateOrder(@PathParam("id") Long id, Order input) throws Exception {
 
         Order order = Order.findById(id);
-        order.eventDate = input.eventDate;
+        order.state = input.state;
 
         return Response.status(Status.OK).entity(order).build();
     }
