@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Service } from 'src/app/core/models/service';
-import { ServicesService } from '../services.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+
+import { Service } from 'src/app/core/models/service';
 import { TokenService } from 'src/app/core/auth/token.service';
 import { OrdersService } from 'src/app/orders/orders.service';
 
@@ -12,28 +13,39 @@ import { OrdersService } from 'src/app/orders/orders.service';
   styleUrls: ['./services-details.component.scss'],
 })
 export class ServicesDetailsComponent implements OnInit {
+
   service: Service;
-  selected: Date;
+
+  selectedDate: Date;
+  orderForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
-    private servicesService: ServicesService,
     private tokenService: TokenService,
     private ordersService: OrdersService,
     private router: Router,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.servicesService
-        .getService(params['id'])
-        .subscribe((service) => (this.service = service));
+    this.route.params.subscribe(params => {
+      this.service = this.route.snapshot.data.service;
+    });
+
+    this.orderForm = this.formBuilder.group({
+      pet: [
+        0,
+        [
+          Validators.required,
+          Validators.min(1),
+        ]
+      ]
     });
   }
 
   onDateSelect(ngbDate: NgbDate) {
     if (this.isRange(ngbDate)) {
-      this.selected = new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day);
+      this.selectedDate = new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day);
     }
   }
 
@@ -46,18 +58,18 @@ export class ServicesDetailsComponent implements OnInit {
   }
 
   isSelected(ngbDate: NgbDate) {
-    return this.selected && this.selected.getTime() === new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day).getTime();
+    return this.selectedDate && this.selectedDate.getTime() === new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day).getTime();
   }
 
   schedule() {
 
-    if (!this.selected) {
-      alert('Selecione uma data valida!');
+    if (!this.selectedDate || this.selectedDate.getTime() < new Date().getTime()) {
+      return alert('Selecione uma data valida!');
     }
 
     if (!this.tokenService.hasToken()) {
-      alert('É preciso realizer o login!');
-      this.router.navigate(
+      alert('É preciso realizar o login!');
+      return this.router.navigate(
         ['signin'],
         {
           queryParams: {
@@ -69,12 +81,13 @@ export class ServicesDetailsComponent implements OnInit {
 
     this.ordersService
       .addOrder({
-        eventDate: this.selected,
+        eventDate: this.selectedDate,
+        petId: this.orderForm.value['pet'],
         serviceId: this.service.id
       })
       .subscribe(
         () => this.router.navigate(['services']),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 }

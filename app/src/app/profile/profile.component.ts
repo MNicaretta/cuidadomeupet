@@ -111,8 +111,8 @@ export class ProfileComponent implements OnInit {
     this.profileService
       .updateUser(user)
       .subscribe(
-        _ => alert('Usuário atualizado!'),
-        err => console.error(err)
+        () => alert('Usuário atualizado!'),
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 
@@ -124,8 +124,8 @@ export class ProfileComponent implements OnInit {
     this.petsService
       .addPet(pet)
       .subscribe(
-        (value) => console.log(this.activatedRoute.snapshot.data['currentUser'].pets),
-        err => console.error(err)
+        () => console.log(this.activatedRoute.snapshot.data['currentUser'].pets),
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 }

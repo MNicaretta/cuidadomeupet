@@ -49,7 +49,7 @@ export class SigninComponent implements OnInit {
       .signin(email, password)
       .subscribe(
         () => this.router.navigate([this.returnUrl]),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 }

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -67,6 +68,9 @@ public class Service extends PanacheEntity {
 
     @Column(name = "user_id", insertable = false, updatable = false)
     public Long userId;
+
+    @Transient
+    public List<Pet> availablePets = new ArrayList<>();
 
     public void setUser(User user) {
         this.user = user;

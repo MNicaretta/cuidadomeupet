@@ -11,11 +11,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let service of services">
-      <td>{{ service.typeLabel }}</td>
-      <td>{{ service.price | currency:'BRL' }}</td>
-      <td>{{ service.startDate | date }} até {{ service.endDate | date }}</td>
-      <td>{{ service.userName }}</td>
-      <td><button class="btn btn-secondary" (click)="viewService(service)">Visualizar</button></td>
+      <td class="align-middle">{{ service.typeLabel }}</td>
+      <td class="align-middle">{{ service.price | currency:'BRL' }}</td>
+      <td class="align-middle">{{ service.startDate | date }} até {{ service.endDate | date }}</td>
+      <td class="align-middle">{{ service.userName }}</td>
+      <td class="align-middle"><button class="btn btn-secondary" (click)="viewService(service)">Visualizar</button></td>
     </tr>
   </tbody>
 </table>

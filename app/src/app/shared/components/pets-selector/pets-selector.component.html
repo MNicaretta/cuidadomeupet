@@ -1,0 +1,4 @@
+<select class="form-control" [value]="selected" (change)="select($event.target.value)">
+  <option value="0">Selecione um Pet</option>
+  <option *ngFor="let pet of pets" [value]="pet.id">{{ pet.name }}</option>
+</select>

@@ -50,7 +50,7 @@ export class PetsFormComponent implements OnInit {
       .addPet(pet)
       .subscribe(
         (value) => this.onAddPet.emit(value),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 }

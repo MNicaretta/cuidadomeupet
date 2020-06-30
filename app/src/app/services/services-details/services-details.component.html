@@ -6,14 +6,18 @@
         <h3 class="card-title">{{ service.userName }}</h3>
         <h4>{{ service.price | currency:'BRL' }}</h4>
         <h4>{{ service.typeLabel }}</h4>
-        <h5 class="card-title">Espécies</h5>
+        <hr/>
+        <h5 class="card-title">Espécies:</h5>
         <div class="d-flex flex-column flex-wrap">
           <span *ngFor="let species of service.speciesLabels">{{ species }}</span>
         </div>
       </div>
       <div class="w-50 d-flex flex-column justify-content-between">
         <p class="card-text">{{ service.additionalInfo }}</p>
-        <button class="btn btn-primary btn-block" (click)="schedule()">Agendar</button>
+        <form [formGroup]="orderForm" (ngSubmit)="schedule()">
+          <app-pets-selector *ngIf="service?.availablePets.length" [pets]="service.availablePets" formControlName="pet"></app-pets-selector>
+          <button type="submit" class="btn btn-primary btn-block my-1" [disabled]="!orderForm.valid">Agendar</button>
+        </form>
       </div>
       <div>
         <ngb-datepicker #d (dateSelect)="onDateSelect($event)" [dayTemplate]="t" outsideDays="hidden">

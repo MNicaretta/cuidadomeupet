@@ -7,6 +7,7 @@ import { ServicesService } from '../services.service';
 import { Service } from '../../core/models/service';
 import { ProfileService } from 'src/app/profile/profile.service';
 import { User } from 'src/app/core/models/user';
+import { dateRangeValidator } from 'src/app/shared/components/date-range-picker/date-range-validator.directive';
 
 @Component({
   selector: 'app-services-form',
@@ -34,15 +35,15 @@ export class ServicesFormComponent implements OnInit {
       ],
       price: [
         0.0,
-        [Validators.required],
+        [Validators.required, Validators.min(1)],
       ],
       dateRange: [
         {},
-        [Validators.required],
+        [Validators.required, dateRangeValidator],
       ],
       species: [
         [],
-        [Validators.required],
+        [Validators.required, Validators.minLength(1)],
       ],
       additionalInfo: [
         ''
@@ -70,7 +71,7 @@ export class ServicesFormComponent implements OnInit {
       .addService(service)
       .subscribe(
         () => this.router.navigate(['services']),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 

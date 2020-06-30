@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 import { ServicesComponent } from './services.component';
 import { ServicesListComponent } from './services-list/services-list.component';
@@ -11,11 +12,15 @@ import { SpeciesListSelectorModule } from '../shared/components/species-list-sel
 import { ServiceTypesSelectorModule } from '../shared/components/service-types-selector/service-types-selector.module';
 import { DateRangePickerModule } from '../shared/components/date-range-picker/date-range-picker.module';
 import { ServicesDetailsComponent } from './services-details/services-details.component';
-import { RouterModule } from '@angular/router';
-
+import { PetsSelectorModule } from '../shared/components/pets-selector/pets-selector.module';
 
 @NgModule({
-  declarations: [ServicesComponent, ServicesListComponent, ServicesFormComponent, ServicesDetailsComponent],
+  declarations: [
+    ServicesComponent,
+    ServicesListComponent,
+    ServicesFormComponent,
+    ServicesDetailsComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -23,6 +28,7 @@ import { RouterModule } from '@angular/router';
     ServicesRoutingModule,
     SpeciesListSelectorModule,
     ServiceTypesSelectorModule,
+    PetsSelectorModule,
     DateRangePickerModule,
     NgbDatepickerModule,
     RouterModule

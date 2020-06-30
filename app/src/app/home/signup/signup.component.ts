@@ -60,7 +60,7 @@ export class SignupComponent implements OnInit {
       .signup(user)
       .subscribe(
         () => this.router.navigate([this.returnUrl]),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 

@@ -41,6 +41,6 @@
       <textarea formControlName="additionalInfo" class="form-control" rows="3"></textarea>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Salvar</button>
+  <button type="submit" class="btn btn-primary" [disabled]="!servicesForm.valid">Salvar</button>
   <button type="button" (click)="cancel()" class="btn btn-secondary">Cancelar</button>
 </form>

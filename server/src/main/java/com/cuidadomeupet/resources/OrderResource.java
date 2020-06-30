@@ -1,13 +1,11 @@
 package com.cuidadomeupet.resources;
 
-import java.util.Date;
-
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -19,8 +17,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.models.Order;
+import com.cuidadomeupet.models.Pet;
 import com.cuidadomeupet.models.Service;
-import com.cuidadomeupet.models.User;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -35,17 +33,15 @@ public class OrderResource {
     
     @POST
     @Transactional
+    @RolesAllowed({"user"})
     public Response addOrder(@Valid Order order) throws Exception {
 
-        Long id = Long.parseLong(jwt.getSubject());
-
-        User user = User.findById(id);
+        Pet pet = Pet.findById(order.petId);
         Service service = Service.findById(order.serviceId);
 
-        order.createdDate = new Date();
         order.totalValue = service.price;
         order.state = Order.State.WAITING;
-        order.setUser(user);
+        order.setPet(pet);
         order.setService(service);
         order.persist();
 
@@ -55,21 +51,11 @@ public class OrderResource {
     @PUT
     @Path("{id}")
     @Transactional
+    @RolesAllowed({"user"})
     public Response updateOrder(@PathParam("id") Long id, Order input) throws Exception {
 
         Order order = Order.findById(id);
         order.state = input.state;
-
-        return Response.status(Status.OK).entity(order).build();
-    }
-
-    @DELETE
-    @Path("{id}")
-    @Transactional
-    public Response cancelOrder(@PathParam("id") Long id) throws Exception {
-
-        Order order = Order.findById(id);
-        order.state = Order.State.CANCELED;
 
         return Response.status(Status.OK).entity(order).build();
     }

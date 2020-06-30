@@ -1,4 +1,4 @@
 <select class="form-control" [value]="selected" (change)="select($event.target.value)">
+  <option disabled>Selecione um tipo</option>
   <option *ngFor="let type of types" [value]="type.value">{{ type.label }}</option>
 </select>
-

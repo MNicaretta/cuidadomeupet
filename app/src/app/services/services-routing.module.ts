@@ -7,6 +7,7 @@ import { ServicesComponent } from './services.component';
 import { ServicesListResolver } from './services-list/services-list.resolver';
 import { ServicesFormComponent } from './services-form/services-form.component';
 import { ServicesDetailsComponent } from './services-details/services-details.component';
+import { ServicesDetailsResolver } from './services-details/services-details.resolver';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
       },
       {
         path: 'view/:id',
-        component: ServicesDetailsComponent
+        component: ServicesDetailsComponent,
+        resolve: { service: ServicesDetailsResolver }
       }
     ],
   },

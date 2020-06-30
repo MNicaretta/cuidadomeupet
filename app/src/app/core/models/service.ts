@@ -1,6 +1,9 @@
+import { Pet } from 'src/app/pets/pet';
+
 export interface Service {
   id?: number,
   additionalInfo?: string,
+  availablePets?: Pet[],
   distance?: number,
   endDate: Date,
   price: number,

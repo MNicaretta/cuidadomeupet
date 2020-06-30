@@ -53,7 +53,7 @@ export class AddressesFormComponent implements OnInit {
       .addAddress(address)
       .subscribe(
         (value) => this.onAddAddress.emit(value),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 }

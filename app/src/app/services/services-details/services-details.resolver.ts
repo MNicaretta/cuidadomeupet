@@ -6,11 +6,11 @@ import { Service } from '../../core/models/service';
 import { ServicesService } from '../services.service';
 
 @Injectable({ providedIn: 'root' })
-export class ServicesListResolver implements Resolve<Observable<Service[]>> {
+export class ServicesDetailsResolver implements Resolve<Observable<Service>> {
 
   constructor(private serviceService: ServicesService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Service[]> {
-    return this.serviceService.getServices();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Service> {
+    return this.serviceService.getService(route.params.id);
   }
 }
