@@ -1,19 +1,16 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">UserId</th>
-      <th scope="col">AdditionalInfo</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Espécies</th>
+      <th scope="col">Informações adicionais</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let pet of pets">
-      <th scope="row">{{ pet.id }}</th>
       <td>{{ pet.name }}</td>
-      <td>{{ pet.userId }}</td>
+      <td>{{ pet.speciesLabel }}</td>
       <td>{{ pet.additionalInfo }}</td>
     </tr>
   </tbody>
 </table>
-<button class="btn btn-primary my-4 btn-block" type="button" (click)="addPet()">Cadastrar</button>

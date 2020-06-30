@@ -42,4 +42,8 @@ public class Pet extends PanacheEntity {
     public static List<Pet> findByUser(User user) {
         return find("user", user).list();
     }
+
+    public String getSpeciesLabel(){
+        return this.species.label();
+    }
 }

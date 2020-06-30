@@ -6,6 +6,7 @@ public class Profile {
 
     public User user;
     public List<Pet> pets;
+    public List<Address> addresses;
     public List<Order> clientOrders;
-    public List<Order> providerOrders;
+    public List<Order> providerOrders;  
 }

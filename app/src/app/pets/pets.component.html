@@ -1,3 +1,2 @@
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+<app-pets-list [pets]="petList"></app-pets-list>
+<app-pets-form [currentUser]="currentUser" (onAddPet)="addPet($event)"></app-pets-form>

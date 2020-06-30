@@ -1,21 +1,22 @@
-<!-- Default form register -->
-<form class="text-center border border-light p-5" [formGroup]="petsForm" (ngSubmit)="save()">
-
-  <p class="h4 mb-4">Registro do Pet</p>
-
+<button class="btn btn-primary my-4 btn-block" data-toggle="collapse" href="#petRegisterForm" type="button">Adicionar
+  pet</button>
+<form id="petRegisterForm" class="text-center border border-light p-5 collapse" [formGroup]="petForm">
   <!-- Name -->
   <input formControlName="name" type="text" class="form-control" placeholder="Nome">
-  <app-formerror *ngIf="petsForm.get('name').errors?.required" text="Este campo é obrigatório">
-  </app-formerror>
+
+  <!-- Species -->
+  <div class="mt-4">
+    <app-species-selector formControlName="species"></app-species-selector>
+  </div>
 
   <!-- Additional Info -->
-  <textarea formControlName="additionalInfo" class="form-control mt-4" placeholder="Informações adicionais">
-  </textarea>
+  <textarea formControlName="additionalInfo" class="form-control mt-4" placeholder="Informações adicionais"></textarea>
 
   <!-- Save button -->
-  <button [disabled]="petsForm.invalid" class="btn btn-primary my-4 btn-block" type="submit">Salvar</button>
+  <button data-toggle="collapse" href="#petRegisterForm" class="btn btn-primary my-4 btn-block" type="button"
+    (click)="addPet()">Salvar</button>
 
   <!-- Cancel button -->
-  <button class="btn btn-secondary my-4 btn-block" type="button" (click)="cancel()">Cancelar</button>
-
+  <button data-toggle="collapse" href="#petRegisterForm" class="btn btn-secondary my-4 btn-block"
+    type="button">Cancelar</button>
 </form>

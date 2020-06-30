@@ -4,17 +4,17 @@ import { Observable } from 'rxjs';
 
 import { EnumMap } from 'src/app/core/models/enum-map';
 
-const API = '/api/species'
+const API = '/api/addressType'
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class SpeciesService {
+export class AddressTypeService {
 
   constructor(private http: HttpClient) { }
 
-  getAvailableSpecies(): Observable<EnumMap[]> {
+  getAddressTypes(): Observable<EnumMap[]> {
     return this.http.get<EnumMap[]>(API);
   }
 }

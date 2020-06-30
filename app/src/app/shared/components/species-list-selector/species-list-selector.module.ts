@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SpeciesListSelectorComponent } from './species-list-selector.component';
-import { HttpClientModule } from '@angular/common/http';
 import { SpeciesService } from './species.service';
 
 @NgModule({
@@ -10,14 +9,10 @@ import { SpeciesService } from './species.service';
     SpeciesListSelectorComponent
   ],
   imports: [
-    CommonModule,
-    HttpClientModule
+    CommonModule
   ],
   exports: [
     SpeciesListSelectorComponent
-  ],
-  providers: [
-    SpeciesService
   ]
 })
 export class SpeciesListSelectorModule { }

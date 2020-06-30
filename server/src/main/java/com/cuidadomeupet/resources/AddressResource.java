@@ -78,5 +78,4 @@ public class AddressResource {
 
         return Response.status(Status.OK).entity(addresses).build();
     }
-
 }

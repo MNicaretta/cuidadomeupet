@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Address } from '../core/models/address';
+import { User } from '../core/models/user';
 
 @Component({
   selector: 'app-addresses',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddressesComponent implements OnInit {
 
+  @Input() addressList: Address[];
+  @Input() currentUser: User;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  addAddress(address: Address) {
+    this.addressList.push(address);
+  }
 }

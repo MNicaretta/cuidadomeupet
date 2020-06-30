@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.cuidadomeupet.models.Address;
 import com.cuidadomeupet.models.Order;
 import com.cuidadomeupet.models.Pet;
 import com.cuidadomeupet.models.Profile;
@@ -36,12 +37,19 @@ public class ProfileResource {
 
         Long id = Long.parseLong(jwt.getSubject());
 
+        User user = User.findById(id);
+        List<Pet> pets = Pet.findByUser(user);
+        List<Address> addresses = Address.findByUser(user);
+        List<Order> clientOrders = Order.findByUser(user);
+        List<Order> providerOrders = Order.findByServices(Service.findByUser(user));
+
         Profile profile = new Profile();
 
-        profile.user = User.findById(id);
-        profile.pets = Pet.findByUser(profile.user);
-        profile.clientOrders = Order.findByUser(profile.user);
-        profile.providerOrders = Order.findByServices(Service.findByUser(profile.user));
+        profile.user = user;
+        profile.pets = pets;
+        profile.addresses = addresses;
+        profile.clientOrders = clientOrders;
+        profile.providerOrders = providerOrders;
 
         return Response.status(Status.OK).entity(profile).build();
     }

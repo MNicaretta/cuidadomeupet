@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Pet } from '../pet';
+import { Component, OnInit, Input } from '@angular/core';
 import { PetsService } from '../pets.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Profile } from 'src/app/core/models/profile';
+import { Pet } from 'src/app/core/models/pet';
 
 @Component({
   selector: 'app-pets-list',
@@ -10,18 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class PetsListComponent implements OnInit {
 
-  pets: Pet[];
+  @Input() pets: Pet[];
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-
-    this.activatedRoute.params.subscribe(params => {
-      this.pets = this.activatedRoute.snapshot.data['pets'];
-    });
-  }
-
-  addPet() {
-    this.router.navigate(['pets', 'add'])
   }
 }

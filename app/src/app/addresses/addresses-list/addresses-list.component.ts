@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 import { Address } from 'src/app/core/models/address';
 
 @Component({
@@ -9,18 +8,10 @@ import { Address } from 'src/app/core/models/address';
 })
 export class AddressesListComponent implements OnInit {
 
-  addresses: Address[];
+  @Input() addresses: Address[];
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-
-    this.activatedRoute.params.subscribe(params => {
-      this.addresses = this.activatedRoute.snapshot.data['addresses'];
-    });
-  }
-
-  addAddress() {
-    this.router.navigate(['addresses', 'add'])
   }
 }

@@ -1,8 +1,9 @@
 export interface Address {
   id?: number,
-  address: string,
-  size: number,
-  type: number,
-  userId: number,
-  zip: string
+  address?: string,
+  size?: number,
+  type?: number,
+  typeLabel?: string,
+  userId?: number,
+  zip?: string
 }

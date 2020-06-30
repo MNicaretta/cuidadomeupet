@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
 import { Address } from 'src/app/core/models/address';
 import { AddressesService } from '../addresses.service';
+import { User } from 'src/app/core/models/user';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { AddressesService } from '../addresses.service';
 })
 export class AddressesFormComponent implements OnInit {
 
+  @Input() currentUser: User;
+  @Output() onAddAddress = new EventEmitter<Address>();
   addressesForm: FormGroup;
 
   constructor(
@@ -33,7 +36,7 @@ export class AddressesFormComponent implements OnInit {
         [Validators.required]
       ],
       type: [
-        '',
+        'HOUSE',
         [Validators.required]
       ],
       zip: [
@@ -43,19 +46,15 @@ export class AddressesFormComponent implements OnInit {
     });
   }
 
-  save(): void {
-    const address = { ...this.addressesForm.value, userId: 2 } as Address;
+  addAddress(): void {
+    const address = { ...this.addressesForm.value, userId: this.currentUser.id } as Address;
 
     this.addressesService
       .addAddress(address)
       .subscribe(
-        (value) => this.router.navigate(['addresses']),
+        (value) => this.onAddAddress.emit(value),
         err => console.error(err)
       );
-  }
-
-  cancel(): void {
-    this.router.navigate(['addresses']);
   }
 }
 

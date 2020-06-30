@@ -1,0 +1,3 @@
+<select class="form-control" [value]="selected" (change)="select($event.target.value)">
+  <option *ngFor="let type of addressTypes" [value]="type.value">{{ type.label }}</option>
+</select>

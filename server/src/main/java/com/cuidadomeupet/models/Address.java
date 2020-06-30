@@ -1,5 +1,7 @@
 package com.cuidadomeupet.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,14 +14,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 @Entity(name = "addresses")
 public class Address extends PanacheEntity {
     
-    public static enum Type {
-        HOUSE,
-        APARTMENT
-    }
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    public Type type;
+    public AddressType type;
     
     @Column(nullable = false)
     public Double size;
@@ -41,4 +38,11 @@ public class Address extends PanacheEntity {
         this.user = user;
     }
 
+    public static List<Address> findByUser(User user) {
+        return find("user", user).list();
+    }
+
+    public String getTypeLabel(){
+        return this.type.label();
+    }
 }

@@ -1,3 +1,2 @@
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+<app-addresses-list [addresses]="addressList"></app-addresses-list>
+<app-addresses-form [currentUser]="currentUser" (onAddAddress)="addAddress($event)"></app-addresses-form>

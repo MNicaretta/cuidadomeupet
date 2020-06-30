@@ -5,8 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from './profile.service';
 import { User } from '../core/models/user';
 import { Profile } from '../core/models/profile';
-import { Pet } from '../pets/pet';
 import { PetsService } from '../pets/pets.service';
+import { Pet } from '../core/models/pet';
+import { Address } from '../core/models/address';
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +22,7 @@ export class ProfileComponent implements OnInit {
   petForm: FormGroup;
   currentUser: User;
   pets: Pet[];
+  addresses: Address[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -94,6 +96,7 @@ export class ProfileComponent implements OnInit {
         this.profileForm.controls['description'].setValue(this.currentUser.description);
 
         this.pets = this.profile.pets;
+        this.addresses = this.profile.addresses;
       }
     });
   }

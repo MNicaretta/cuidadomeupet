@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Pet } from './pet';
+import { Pet } from '../core/models/pet';
 
 const API_URL = "/api/pets";
 
@@ -18,10 +18,10 @@ export class PetsService {
   }
 
   updatePet(pet: Pet) {
-    return this.http.put<Pet>(API_URL + '/' + pet.id + '/' + pet.revision, pet);
+    return this.http.put<Pet>(API_URL + '/' + pet.id, pet);
   }
 
   deletePet(pet: Pet) {
-    return this.http.delete<Pet>(API_URL + '/' + pet.id + '/' + pet.revision);
+    return this.http.delete<Pet>(API_URL + '/' + pet.id);
   }
 }

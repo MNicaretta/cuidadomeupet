@@ -7,9 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormerrorModule } from '../shared/components/formerror/formerror.module';
-import { AddressesRoutingModule } from './addresses-routing.module';
 import { AddressesService } from './addresses.service';
 import { AddressesListResolver } from './addresses-list/addresses-list.resolver';
+import { AddressTypeSelectorModule } from '../shared/components/address-type-selector/address-type-selector.module';
 
 
 
@@ -22,11 +22,14 @@ import { AddressesListResolver } from './addresses-list/addresses-list.resolver'
     RouterModule,
     HttpClientModule,
     FormerrorModule,
-    AddressesRoutingModule
+    AddressTypeSelectorModule
   ],
   providers: [
     AddressesService,
     AddressesListResolver
+  ],
+  exports: [
+    AddressesComponent
   ]
 })
 export class AddressesModule { }
