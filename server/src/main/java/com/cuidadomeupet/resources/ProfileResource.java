@@ -1,5 +1,7 @@
 package com.cuidadomeupet.resources;
 
+import java.util.List;
+
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
