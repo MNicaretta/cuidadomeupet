@@ -15,10 +15,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.cuidadomeupet.models.Address;
 import com.cuidadomeupet.models.Pet;
 import com.cuidadomeupet.models.Service;
 import com.cuidadomeupet.models.User;
-import com.cuidadomeupet.utils.EnumUtilities;
+import com.cuidadomeupet.utils.EnumUtils;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -37,6 +38,13 @@ public class ServiceResource {
     public Response addService(@Valid Service service) throws Exception {
 
         service.setUser(User.findById(service.userId));
+
+        if (service.type == Service.Type.HOSTING) {
+            service.setAddress(Address.findById(service.addressId));
+        } else {
+            service.setAddress(null);
+        }
+
         service.persist();
 
         return Response.status(Status.OK).entity(service).build();
@@ -51,8 +59,11 @@ public class ServiceResource {
         if (jwt.getSubject() != null) {
             User user = User.findById(Long.parseLong(jwt.getSubject()));
 
-            if (user.id != service.userId) {
+            service.schedulable = user.id != service.userId;
+
+            if (service.schedulable) {
                 service.availablePets = Pet.findByUser(user, service.species);
+                service.availableAddresses = Address.findByUser(user);
             }
         }
 
@@ -69,6 +80,6 @@ public class ServiceResource {
     @Path("types")
     public Response getServiceTypes() throws Exception {
 
-        return Response.status(Status.OK).entity(EnumUtilities.toList(Service.Type.class)).build();
+        return Response.status(Status.OK).entity(EnumUtils.toList(Service.Type.class)).build();
     }
 }

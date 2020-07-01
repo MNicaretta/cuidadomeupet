@@ -30,7 +30,7 @@ public class Pet extends PanacheEntity {
 
     @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne()
-    private User user;
+    public User user;
 
     @Column(name = "user_id", insertable = false, updatable = false)
     public Long userId;
@@ -49,9 +49,5 @@ public class Pet extends PanacheEntity {
 
 	public static List<Pet> findByUser(User user, List<Species> species) {
 		return find("user = ?1 and species in (?2)", user, species).list();
-	}
-
-	public String getUserName() {
-		return null;
 	}
 }

@@ -37,7 +37,7 @@ export class SpeciesSelectorComponent implements OnInit, ControlValueAccessor {
 
   writeValue(obj: any): void {
     if (obj !== undefined) {
-      this.selected = obj;
+      this.selected = obj ? obj : '';
     }
   }
 

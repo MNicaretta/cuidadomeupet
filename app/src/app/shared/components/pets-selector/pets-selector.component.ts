@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
-import { Pet } from 'src/app/pets/pet';
+import { Pet } from 'src/app/core/models/pet';
 
 @Component({
   selector: 'app-pets-selector',
@@ -28,7 +28,6 @@ export class PetsSelectorComponent implements OnInit, ControlValueAccessor {
   }
 
   select(value: string): void {
-    console.log(value);
     this.selected = parseInt(value);
     this.propagateChange(this.selected);
   }

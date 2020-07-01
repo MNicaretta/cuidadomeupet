@@ -17,12 +17,13 @@ export class AddressesFormComponent implements OnInit {
 
   @Input() currentUser: User;
   @Output() onAddAddress = new EventEmitter<Address>();
+
   addressesForm: FormGroup;
+  zipMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
   constructor(
     private formBuilder: FormBuilder,
     private addressesService: AddressesService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -31,17 +32,13 @@ export class AddressesFormComponent implements OnInit {
         '',
         [Validators.required]
       ],
-      size: [
-        '',
-        [Validators.required]
-      ],
       type: [
-        'HOUSE',
+        '',
         [Validators.required]
       ],
       zip: [
         '',
-        [Validators.required]
+        [Validators.required, Validators.pattern(/\d{5}-\d{3}/)]
       ]
     });
   }
@@ -52,7 +49,7 @@ export class AddressesFormComponent implements OnInit {
     this.addressesService
       .addAddress(address)
       .subscribe(
-        (value) => this.onAddAddress.emit(value),
+        (value) => { this.onAddAddress.emit(value); this.addressesForm.reset() },
         err => { console.error(err); alert('Ocorreu um erro') }
       );
   }

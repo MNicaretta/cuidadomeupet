@@ -1,8 +1,23 @@
-<button class="btn btn-primary my-4 btn-block" data-toggle="collapse" href="#petRegisterForm" type="button">Adicionar
-  pet</button>
-<form id="petRegisterForm" class="text-center border border-light p-5 collapse" [formGroup]="petForm">
+<button
+  class="btn btn-primary my-4 btn-block"
+  data-toggle="collapse"
+  href="#petRegisterForm"
+  type="button"
+>
+  Adicionar pet
+</button>
+<form
+  id="petRegisterForm"
+  class="text-center border border-light p-5 collapse"
+  [formGroup]="petForm"
+>
   <!-- Name -->
-  <input formControlName="name" type="text" class="form-control" placeholder="Nome">
+  <input
+    formControlName="name"
+    type="text"
+    class="form-control"
+    placeholder="Nome"
+  />
 
   <!-- Species -->
   <div class="mt-4">
@@ -10,13 +25,31 @@
   </div>
 
   <!-- Additional Info -->
-  <textarea formControlName="additionalInfo" class="form-control mt-4" placeholder="Informações adicionais"></textarea>
+  <textarea
+    formControlName="additionalInfo"
+    class="form-control mt-4"
+    placeholder="Informações adicionais"
+  ></textarea>
 
   <!-- Save button -->
-  <button data-toggle="collapse" href="#petRegisterForm" class="btn btn-primary my-4 btn-block" type="button"
-    (click)="addPet()">Salvar</button>
+  <button
+    data-toggle="collapse"
+    href="#petRegisterForm"
+    class="btn btn-primary my-4 btn-block"
+    type="button"
+    [disabled]="!petForm.valid"
+    (click)="addPet()"
+  >
+    Salvar
+  </button>
 
   <!-- Cancel button -->
-  <button data-toggle="collapse" href="#petRegisterForm" class="btn btn-secondary my-4 btn-block"
-    type="button">Cancelar</button>
+  <button
+    data-toggle="collapse"
+    href="#petRegisterForm"
+    class="btn btn-secondary my-4 btn-block"
+    type="button"
+  >
+    Cancelar
+  </button>
 </form>

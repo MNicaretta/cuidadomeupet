@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -16,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.cuidadomeupet.models.Address;
 import com.cuidadomeupet.models.Order;
 import com.cuidadomeupet.models.Pet;
 import com.cuidadomeupet.models.Service;
@@ -36,12 +36,15 @@ public class OrderResource {
     @RolesAllowed({"user"})
     public Response addOrder(@Valid Order order) throws Exception {
 
-        Pet pet = Pet.findById(order.petId);
         Service service = Service.findById(order.serviceId);
+
+        if (service.type == Service.Type.SITTING) {
+            order.setAddress(Address.findById(order.addressId));
+        }
 
         order.totalValue = service.price;
         order.state = Order.State.WAITING;
-        order.setPet(pet);
+        order.setPet(Pet.findById(order.petId));
         order.setService(service);
         order.persist();
 
@@ -56,15 +59,6 @@ public class OrderResource {
 
         Order order = Order.findById(id);
         order.state = input.state;
-
-        return Response.status(Status.OK).entity(order).build();
-    }
-
-    @GET
-    @Path("{id}")
-    public Response getOrder(@PathParam("id") Long id) throws Exception {
-
-        Order order = Order.findById(id);
 
         return Response.status(Status.OK).entity(order).build();
     }

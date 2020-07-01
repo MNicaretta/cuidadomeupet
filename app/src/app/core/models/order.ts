@@ -1,16 +1,19 @@
-import { Pet } from 'src/app/pets/pet';
+import { Pet } from './pet';
+import { Address } from './address';
+import { User } from './user';
+import { Service } from './service';
 
 export interface Order {
   id?: number,
+  addressId?: number,
+  address?: Address,
   createdDate?: Date,
   eventDate: Date,
   petId: number,
   pet?: Pet,
   serviceId: number,
-  serviceUser?: string,
+  service?: Service,
   state?: string,
   stateLabel?: string,
   totalValue?: number,
-  userId?: number,
-  userName?: string
 }

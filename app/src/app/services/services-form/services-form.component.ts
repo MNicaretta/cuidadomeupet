@@ -8,6 +8,8 @@ import { Service } from '../../core/models/service';
 import { ProfileService } from 'src/app/profile/profile.service';
 import { User } from 'src/app/core/models/user';
 import { dateRangeValidator } from 'src/app/shared/components/date-range-picker/date-range-validator.directive';
+import { AddressesService } from 'src/app/addresses/addresses.service';
+import { Address } from 'src/app/core/models/address';
 
 @Component({
   selector: 'app-services-form',
@@ -18,10 +20,12 @@ export class ServicesFormComponent implements OnInit {
 
   servicesForm: FormGroup;
   currentUser: User;
+  availableAddresses: Address[];
 
   constructor(
     private servicesService: ServicesService,
     private profileService: ProfileService,
+    private addressesService: AddressesService,
     private router: Router,
     private formBuilder: FormBuilder
   ) { }
@@ -30,7 +34,7 @@ export class ServicesFormComponent implements OnInit {
 
     this.servicesForm = this.formBuilder.group({
       type: [
-        'SITTING',
+        '',
         [Validators.required],
       ],
       price: [
@@ -47,25 +51,40 @@ export class ServicesFormComponent implements OnInit {
       ],
       additionalInfo: [
         ''
+      ],
+      address: [
+        0
       ]
     });
 
     this.profileService
       .getCurrentUser()
       .subscribe(user => this.currentUser = user);
+
+    this.addressesService
+      .getAvailableAddresses()
+      .subscribe(addresses => this.availableAddresses = addresses);
+  }
+
+  validAddress() {
+    return this.servicesForm.value.type === 'SITTING' || this.servicesForm.value.address > 0;
   }
 
   save(): void {
     const service: Service = {
-      type: this.servicesForm.value['type'],
-      price: this.servicesForm.value['price'],
+      type: this.servicesForm.value.type,
+      price: this.servicesForm.value.price,
       state: 'ACTIVE',
-      startDate: this.servicesForm.value['dateRange']['start'],
-      endDate: this.servicesForm.value['dateRange']['end'],
+      startDate: this.servicesForm.value.dateRange.start,
+      endDate: this.servicesForm.value.dateRange.end,
       userId: this.currentUser.id,
-      species: this.servicesForm.value['species'],
-      additionalInfo: this.servicesForm.value['additionalInfo']
+      species: this.servicesForm.value.species,
+      additionalInfo: this.servicesForm.value.additionalInfo
     };
+
+    if (service.type === 'HOSTING') {
+      service.addressId = this.servicesForm.value.address;
+    }
 
     this.servicesService
       .addService(service)

@@ -30,16 +30,23 @@ export class ServicesDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.service = this.route.snapshot.data.service;
-    });
 
-    this.orderForm = this.formBuilder.group({
-      pet: [
-        0,
-        [
-          Validators.required,
-          Validators.min(1),
-        ]
-      ]
+      this.orderForm = this.formBuilder.group({
+        pet: [
+          0,
+          [
+            Validators.required,
+            Validators.min(1),
+          ]
+        ],
+        address: [
+          this.service.type === 'SITTING' ? 0 : null,
+          this.service.type === 'SITTING' ? [
+            Validators.required,
+            Validators.min(1),
+          ] : null
+        ],
+      });
     });
   }
 
@@ -61,9 +68,13 @@ export class ServicesDetailsComponent implements OnInit {
     return this.selectedDate && this.selectedDate.getTime() === new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day).getTime();
   }
 
+  validDate() {
+    return this.selectedDate && this.selectedDate.getTime() >= new Date().getTime();
+  }
+
   schedule() {
 
-    if (!this.selectedDate || this.selectedDate.getTime() < new Date().getTime()) {
+    if (!this.validDate()) {
       return alert('Selecione uma data valida!');
     }
 
@@ -82,7 +93,8 @@ export class ServicesDetailsComponent implements OnInit {
     this.ordersService
       .addOrder({
         eventDate: this.selectedDate,
-        petId: this.orderForm.value['pet'],
+        petId: this.orderForm.value.pet,
+        addressId: this.orderForm.value.address,
         serviceId: this.service.id
       })
       .subscribe(

@@ -1,7 +1,8 @@
 import { Component, OnInit, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+
 import { EnumMap } from 'src/app/core/models/enum-map';
-import { AddressTypeService } from './address-type.service';
+import { AddressesService } from 'src/app/addresses/addresses.service';
 
 @Component({
   selector: 'app-address-type-selector',
@@ -17,14 +18,15 @@ import { AddressTypeService } from './address-type.service';
 })
 export class AddressTypeSelectorComponent implements OnInit, ControlValueAccessor {
 
-  selected: string;
   addressTypes: EnumMap[] = [];
+
+  selected: string;
   propagateChange = (_: any) => { };
 
-  constructor(private addressTypeService: AddressTypeService) { }
+  constructor(private addressesService: AddressesService) { }
 
   ngOnInit(): void {
-    this.addressTypeService
+    this.addressesService
       .getAddressTypes()
       .subscribe(value => this.addressTypes = value);
   }
@@ -36,7 +38,7 @@ export class AddressTypeSelectorComponent implements OnInit, ControlValueAccesso
 
   writeValue(obj: any): void {
     if (obj !== undefined) {
-      this.selected = obj;
+      this.selected = obj ? obj : '';
     }
   }
 

@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.models.Species;
-import com.cuidadomeupet.utils.EnumUtilities;
+import com.cuidadomeupet.utils.EnumUtils;
 
 @RequestScoped
 @Path("species")
@@ -21,6 +21,6 @@ public class SpeciesResource {
     @GET
     public Response getSpecies() throws Exception {
 
-        return Response.status(Status.OK).entity(EnumUtilities.toList(Species.class)).build();
+        return Response.status(Status.OK).entity(EnumUtils.toList(Species.class)).build();
     }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.cuidadomeupet.models.Labelable;
 
-public class EnumUtilities {
+public class EnumUtils {
     
     public static <E extends Enum<?>> List<Map<String, Object>> toList(Class<E> enumClass) throws Exception {
 

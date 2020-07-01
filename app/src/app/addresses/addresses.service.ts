@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Address } from '../core/models/address';
 
+import { Address } from '../core/models/address';
+import { EnumMap } from '../core/models/enum-map';
 
 const API_URL = "/api/addresses";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AddressesService {
-
   constructor(private http: HttpClient) { }
-
-  getAddresses() {
-    return this.http.get<Address[]>(API_URL);
-  }
 
   addAddress(address: Address) {
     return this.http.post<Address>(API_URL, address);
   }
 
-  updateAddress(address: Address) {
-    return this.http.put<Address>(API_URL + '/' + address.id , address);
+  getAvailableAddresses() {
+    return this.http.get<Address[]>(API_URL);
   }
 
-  deleteAddress(address: Address) {
-    return this.http.delete<Address>(API_URL + '/' + address.id);
-  }
+  getAddressTypes() {
+    return this.http.get<EnumMap[]>(API_URL + "/types");
+  };
 }

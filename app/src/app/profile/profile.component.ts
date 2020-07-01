@@ -47,43 +47,6 @@ export class ProfileComponent implements OnInit {
       description: [
         ''
       ],
-      actualPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(14),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*/)
-        ]
-      ],
-      newPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(14),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*/)
-        ]
-      ],
-      confirmPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(14),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*/)
-        ]
-      ]
-    });
-
-    this.petForm = this.formBuilder.group({
-      name: [
-        '',
-        [Validators.required]
-      ],
-      additionalInfo: [
-        ''
-      ]
     });
 
     this.activatedRoute.params.subscribe(params => {

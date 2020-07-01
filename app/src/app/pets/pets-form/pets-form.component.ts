@@ -19,7 +19,6 @@ export class PetsFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private petsService: PetsService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -29,8 +28,8 @@ export class PetsFormComponent implements OnInit {
         [Validators.required]
       ],
       species: [
-        'DOG',
-        [Validators.required]
+        '',
+        [Validators.required],
       ],
       additionalInfo: [
         ''
@@ -49,7 +48,7 @@ export class PetsFormComponent implements OnInit {
     this.petsService
       .addPet(pet)
       .subscribe(
-        (value) => this.onAddPet.emit(value),
+        (value) => { this.onAddPet.emit(value); this.petForm.reset() },
         err => { console.error(err); alert('Ocorreu um erro') }
       );
   }

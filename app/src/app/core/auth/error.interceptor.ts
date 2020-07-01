@@ -8,11 +8,15 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
@@ -21,8 +25,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         // auto signout
         this.authService.signout();
         alert('Sessão expirada!');
-        location.reload(true);
-      }
+        this.router.navigate(
+          ['signin']
+        );
+        }
 
       const error = err.error.message || err.statusText;
       return throwError(error);

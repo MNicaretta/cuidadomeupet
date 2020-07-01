@@ -10,6 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -59,25 +60,38 @@ public class Service extends PanacheEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public List<Species> species;
 
     @JoinColumn(name = "user_id", nullable = false)
     @ManyToOne()
-    private User user;
+    public User user;
 
     @Column(name = "user_id", insertable = false, updatable = false)
     public Long userId;
 
+    @JoinColumn(name = "address_id")
+    @ManyToOne()
+    public Address address;
+    
+    @Column(name = "address_id", insertable = false, updatable = false)
+    public Long addressId;
+
     @Transient
     public List<Pet> availablePets = new ArrayList<>();
+
+    @Transient
+    public List<Address> availableAddresses = new ArrayList<>();
+
+    @Transient
+    public boolean schedulable = false;
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public String getUserName() {
-        return user.name;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getTypeLabel() {

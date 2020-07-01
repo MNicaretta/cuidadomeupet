@@ -42,7 +42,7 @@
     </app-formerror>
 
     <!-- Sign up button -->
-    <button class="btn btn-primary my-4 btn-block" type="submit">Cadastrar-se</button>
+    <button class="btn btn-primary my-4 btn-block" type="submit" [disabled]="!signupForm.valid">Cadastrar-se</button>
 
     <!-- Terms of service -->
     <p>Ao clicar em

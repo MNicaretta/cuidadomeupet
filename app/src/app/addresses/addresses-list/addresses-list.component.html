@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th scope="col">Endereço</th>
-      <th scope="col">Tamanho</th>
       <th scope="col">Tipo</th>
       <th scope="col">CEP</th>
     </tr>
@@ -10,7 +9,6 @@
   <tbody>
     <tr *ngFor="let address of addresses">
       <td>{{ address.address }}</td>
-      <td>{{ address.size }}</td>
       <td>{{ address.typeLabel }}</td>
       <td>{{ address.zip }}</td>
     </tr>

@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,7 +38,6 @@ public class Order extends PanacheEntity {
     @Temporal(TemporalType.DATE)
     @JsonbDateFormat(value = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @NotNull
-    @FutureOrPresent
     public Date eventDate;
 
     @Column(name = "total_value", nullable = false)
@@ -51,7 +49,7 @@ public class Order extends PanacheEntity {
 
     @JoinColumn(name = "service_id", nullable = false)
     @ManyToOne()
-    private Service service;
+    public Service service;
 
     @Column(name = "service_id", insertable = false, updatable = false)
     @NotNull
@@ -59,11 +57,18 @@ public class Order extends PanacheEntity {
 
     @JoinColumn(name = "pet_id", nullable = false)
     @ManyToOne()
-    private Pet pet;
+    public Pet pet;
     
     @Column(name = "pet_id", insertable = false, updatable = false)
     @NotNull
     public Long petId;
+
+    @JoinColumn(name = "address_id")
+    @ManyToOne()
+    public Address address;
+    
+    @Column(name = "address_id", insertable = false, updatable = false)
+    public Long addressId;
 
     public void setService(Service service) {
         this.service = service;
@@ -73,23 +78,23 @@ public class Order extends PanacheEntity {
         this.pet = pet;
     }
 
-    public static List<Order> findByUser(User user) {
-        return find("user", user).list();
+    public void setAddress(Address address) {
+        this.address = address;
     }
-
-    public static List<Order> findByServices(List<Service> services) {
-        return find("service", services).list();
-    }
-
-	public String getUserName() {
-		return pet.getUserName();
-	}
-
-	public String getServiceUser() {
-		return service.getUserName();
-	}
 
     public String getStateLabel() {
         return state.label();
+    }
+
+    public static List<Order> findByUser(User user) {
+        return find("pet IN(?1)", Pet.findByUser(user)).list();
+    }
+
+    public static List<Order> findByService(Service service) {
+        return find("service", service).list();
+    }
+
+    public static List<Order> findByServices(List<Service> services) {
+        return find("service IN(?1)", services).list();
     }
 }

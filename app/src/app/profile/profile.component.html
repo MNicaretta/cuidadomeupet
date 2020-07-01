@@ -33,6 +33,14 @@
                     <a class="nav-link" [ngClass]="{ 'active':activeTab==='addresses' }"
                       (click)="tabActive('addresses')" data-toggle="tab">Meus endereços</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='clientOrders' }" (click)="tabActive('clientOrders')"
+                      data-toggle="tab">Minhas ordens</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{ 'active':activeTab==='providerOrders' }" (click)="tabActive('providerOrders')"
+                      data-toggle="tab">Meus serviços</a>
+                  </li>
                 </ul>
                 <div class="tab-content pt-3">
                   <div class="tab-pane fade show active" [ngClass]="{ 'active':activeTab==='profile'}">
@@ -67,37 +75,6 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-12">
-                          <div class="mb-2"><b>Trocar Senha</b></div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group">
-                                <label>Senha atual</label>
-                                <input type="password" formControlName="actualPassword" class="form-control"
-                                  placeholder="••••••">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group">
-                                <label>Nova senha</label>
-                                <input type="password" formControlName="newPassword" class="form-control"
-                                  placeholder="••••••">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group">
-                                <label>Confirmar Nova Senha</label>
-                                <input type="password" formControlName="confirmPassword" class="form-control"
-                                  placeholder="••••••"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
                         <div class="col d-flex justify-content-end">
                           <button class="btn btn-primary" type="submit">Salvar alterações</button>
                         </div>
@@ -109,6 +86,12 @@
                   </div>
                   <div class="tab-pane fade show active" id="addresses" [ngClass]="{ 'active':activeTab==='addresses'}">
                     <app-addresses [addressList]="profile.addresses" [currentUser]="currentUser"></app-addresses>
+                  </div>
+                  <div class="tab-pane fade show active" [ngClass]="{ 'active':activeTab==='clientOrders'}">
+                    <app-orders [orders]="profile.clientOrders" clientType="true"></app-orders>
+                  </div>
+                  <div class="tab-pane fade show active" [ngClass]="{ 'active':activeTab==='providerOrders'}">
+                    <app-orders [orders]="profile.providerOrders"></app-orders>
                   </div>
                 </div>
               </div>

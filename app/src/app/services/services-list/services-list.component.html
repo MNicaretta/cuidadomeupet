@@ -14,7 +14,7 @@
       <td class="align-middle">{{ service.typeLabel }}</td>
       <td class="align-middle">{{ service.price | currency:'BRL' }}</td>
       <td class="align-middle">{{ service.startDate | date }} até {{ service.endDate | date }}</td>
-      <td class="align-middle">{{ service.userName }}</td>
+      <td class="align-middle">{{ service.user.name }}</td>
       <td class="align-middle"><button class="btn btn-secondary" (click)="viewService(service)">Visualizar</button></td>
     </tr>
   </tbody>

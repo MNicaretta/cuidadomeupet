@@ -12,6 +12,8 @@ import { CoreModule } from '../core/core.module';
 import { PetsService } from '../pets/pets.service';
 import { PetsModule } from '../pets/pets.module';
 import { AddressesModule } from '../addresses/addresses.module';
+import { EvaluationsModule } from '../evaluations/evaluations.module';
+import { OrdersModule } from '../orders/orders.module';
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -23,6 +25,8 @@ import { AddressesModule } from '../addresses/addresses.module';
     HttpClientModule,
     ProfileRoutingModule,
     PetsModule,
+    EvaluationsModule,
+    OrdersModule,
     CoreModule,
     AddressesModule
   ],
