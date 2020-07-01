@@ -9,15 +9,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ServicesListComponent implements OnInit {
 
-  pets: Service[];
+  services: Service[];
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.pets = this.activatedRoute.snapshot.data['services'];
+      this.services = this.activatedRoute.snapshot.data['services'];
     });
   }
 
+  addService() {
+    this.router.navigate(['services', 'add'])
+  }
 
+  viewService(service: Service) {
+    this.router.navigate(['services', 'view', service.id]);
+  }
 }

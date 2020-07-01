@@ -15,7 +15,7 @@ import com.cuidadomeupet.models.SigninResponse;
 import com.cuidadomeupet.models.User;
 import com.cuidadomeupet.models.UserValidationRequest;
 import com.cuidadomeupet.models.UserValidationResponse;
-import com.cuidadomeupet.utils.BcryptUtil;
+import com.cuidadomeupet.utils.BcryptUtils;
 import com.cuidadomeupet.utils.TokenUtils;
 
 @Path("auth")
@@ -28,7 +28,7 @@ public class AuthenticationResource {
     @Transactional
     public Response signup(@Valid User user) throws Exception {
 
-        user.password = BcryptUtil.bcryptHash(user.password);
+        user.password = BcryptUtils.bcryptHash(user.password);
         user.persist();
 
         String token = TokenUtils.generateTokenString(user);
@@ -50,7 +50,7 @@ public class AuthenticationResource {
             return Response.status(Status.UNAUTHORIZED).build();
         }
 
-        if (!BcryptUtil.verify(user.password, request.password)) {
+        if (!BcryptUtils.verify(user.password, request.password)) {
             return Response.status(Status.UNAUTHORIZED).build();
         }
 

@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./services/services.module').then(m => m.ServicesModule)
   },
   {
+    path: 'addresses',
+    loadChildren: () => import('./addresses/addresses.module').then(m => m.AddressesModule)
+  },
+  {
     path: '404',
     component: NotFoundComponent
   },

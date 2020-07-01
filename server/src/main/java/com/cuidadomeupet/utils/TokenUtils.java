@@ -32,7 +32,7 @@ public class TokenUtils {
     private static JwtClaimsBuilder getClaims(User user) {
 
         long currentTimeInSecs = currentTimeInSecs();
-        long exp = currentTimeInSecs + 300;
+        long exp = currentTimeInSecs + 1800;
 
         return Jwt.claims()
                   .issuer("http://cuidadomeupet.com/")

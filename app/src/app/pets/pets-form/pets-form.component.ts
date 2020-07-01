@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PetsService } from '../pets.service';
-import { Pet } from '../pet';
+import { Pet } from '../../core/models/pet';
 import { Router } from '@angular/router';
+import { User } from 'src/app/core/models/user';
 
 @Component({
   selector: 'app-pets-form',
@@ -11,19 +12,24 @@ import { Router } from '@angular/router';
 })
 export class PetsFormComponent implements OnInit {
 
-  petsForm: FormGroup;
+  @Input() currentUser: User;
+  @Output() onAddPet = new EventEmitter<Pet>();
+  petForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private petsService: PetsService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.petsForm = this.formBuilder.group({
+    this.petForm = this.formBuilder.group({
       name: [
         '',
         [Validators.required]
+      ],
+      species: [
+        '',
+        [Validators.required],
       ],
       additionalInfo: [
         ''
@@ -31,18 +37,19 @@ export class PetsFormComponent implements OnInit {
     });
   }
 
-  save(): void {
-    const pet = { ...this.petsForm.value, userId: 2 } as Pet;
+  addPet(): void {
+    const pet: Pet = {
+      userId: this.currentUser.id,
+      name: this.petForm.value['name'],
+      species: this.petForm.value['species'],
+      additionalInfo: this.petForm.value['additionalInfo']
+    };
 
     this.petsService
       .addPet(pet)
       .subscribe(
-        (value) => this.router.navigate(['pets']),
-        err => console.error(err)
+        (value) => { this.onAddPet.emit(value); this.petForm.reset() },
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
-  }
-
-  cancel(): void {
-    this.router.navigate(['pets']);
   }
 }

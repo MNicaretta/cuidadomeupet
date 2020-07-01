@@ -47,7 +47,6 @@ export class SignupComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(14),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*/)
         ]
       ]
     });
@@ -61,7 +60,7 @@ export class SignupComponent implements OnInit {
       .signup(user)
       .subscribe(
         () => this.router.navigate([this.returnUrl]),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 

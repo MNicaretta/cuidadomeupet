@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
 import { ProfileService } from './profile.service';
 import { User } from '../core/models/user';
-import { ActivatedRoute } from '@angular/router';
-import { Pet } from '../pets/pet';
 import { Profile } from '../core/models/profile';
 import { PetsService } from '../pets/pets.service';
+import { Pet } from '../core/models/pet';
+import { Address } from '../core/models/address';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +22,7 @@ export class ProfileComponent implements OnInit {
   petForm: FormGroup;
   currentUser: User;
   pets: Pet[];
+  addresses: Address[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,43 +47,6 @@ export class ProfileComponent implements OnInit {
       description: [
         ''
       ],
-      actualPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(14),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*/)
-        ]
-      ],
-      newPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(14),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*/)
-        ]
-      ],
-      confirmPassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(14),
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).*/)
-        ]
-      ]
-    });
-
-    this.petForm = this.formBuilder.group({
-      name: [
-        '',
-        [Validators.required]
-      ],
-      additionalInfo: [
-        ''
-      ]
     });
 
     this.activatedRoute.params.subscribe(params => {
@@ -93,6 +59,7 @@ export class ProfileComponent implements OnInit {
         this.profileForm.controls['description'].setValue(this.currentUser.description);
 
         this.pets = this.profile.pets;
+        this.addresses = this.profile.addresses;
       }
     });
   }
@@ -107,8 +74,8 @@ export class ProfileComponent implements OnInit {
     this.profileService
       .updateUser(user)
       .subscribe(
-        (value) => console.log(value),
-        err => console.error(err)
+        () => alert('Usuário atualizado!'),
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 
@@ -120,8 +87,8 @@ export class ProfileComponent implements OnInit {
     this.petsService
       .addPet(pet)
       .subscribe(
-        (value) => console.log(this.activatedRoute.snapshot.data['currentUser'].pets),
-        err => console.error(err)
+        () => console.log(this.activatedRoute.snapshot.data['currentUser'].pets),
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 }

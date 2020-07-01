@@ -40,13 +40,9 @@
       *ngIf="signupForm.get('password').errors?.maxlength"
       text="Tamanho máximo é de 14 caracteres">
     </app-formerror>
-    <app-formerror
-      *ngIf="signupForm.get('password').errors?.pattern"
-      text="Deve conter letras minúsculas, maiúsculas, números e caracteres especiais">
-    </app-formerror>
 
     <!-- Sign up button -->
-    <button class="btn btn-primary my-4 btn-block" type="submit">Cadastrar-se</button>
+    <button class="btn btn-primary my-4 btn-block" type="submit" [disabled]="!signupForm.valid">Cadastrar-se</button>
 
     <!-- Terms of service -->
     <p>Ao clicar em

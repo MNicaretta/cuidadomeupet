@@ -1,9 +1,5 @@
 package com.cuidadomeupet.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -14,6 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.cuidadomeupet.models.Species;
+import com.cuidadomeupet.utils.EnumUtils;
 
 @RequestScoped
 @Path("species")
@@ -22,20 +19,8 @@ import com.cuidadomeupet.models.Species;
 public class SpeciesResource {
     
     @GET
-    public Response getSpecies() {
+    public Response getSpecies() throws Exception {
 
-        return Response.status(Status.OK).entity(getSpeciesList()).build();
-    }
-
-    private List<Map<String, Object>> getSpeciesList() {
-
-        List<Map<String, Object>> result = new ArrayList<>();
-
-        for (Species species : Species.values()) {
-            result.add(Map.of("label", species.label,
-                              "value", species.name()));
-        }
-
-        return result;
+        return Response.status(Status.OK).entity(EnumUtils.toList(Species.class)).build();
     }
 }

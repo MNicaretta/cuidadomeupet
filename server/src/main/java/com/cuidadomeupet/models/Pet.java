@@ -1,10 +1,11 @@
 package com.cuidadomeupet.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -28,8 +29,8 @@ public class Pet extends PanacheEntity {
     public Species species;
 
     @JoinColumn(name = "user_id", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    @ManyToOne()
+    public User user;
 
     @Column(name = "user_id", insertable = false, updatable = false)
     public Long userId;
@@ -37,4 +38,16 @@ public class Pet extends PanacheEntity {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public static List<Pet> findByUser(User user) {
+        return find("user", user).list();
+    }
+
+    public String getSpeciesLabel(){
+        return this.species.label();
+    }
+
+	public static List<Pet> findByUser(User user, List<Species> species) {
+		return find("user = ?1 and species in (?2)", user, species).list();
+	}
 }

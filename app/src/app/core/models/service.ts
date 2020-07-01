@@ -1,14 +1,26 @@
-import { Species } from './species';
+import { Pet } from './pet';
+import { Evaluation } from './evaluation';
+import { Address } from './address';
+import { User } from './user';
 
 export interface Service {
   id?: number,
-  type: string,
-  price: number,
-  distance?: number,
   additionalInfo?: string,
-  state: string,
-  startDate: Date,
+  addressId?: number,
+  address?: Address,
+  availablePets?: Pet[],
+  availableAddresses?: Address[],
+  distance?: number,
   endDate: Date,
+  evaluations?: Evaluation[],
+  price: number,
+  schedulable?: boolean,
+  species: string[],
+  speciesLabels?: string[],
+  startDate: Date,
+  state: string,
+  type: string,
+  typeLabel?: string,
   userId: number,
-  species: Species[]
+  user?: User,
 }

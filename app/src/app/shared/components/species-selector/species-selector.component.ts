@@ -1,53 +1,49 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
-import { Species } from 'src/app/core/models/species';
-import { SpeciesService } from './species.service';
+import { Component, OnInit, forwardRef } from '@angular/core';
+import { SpeciesService } from '../species-list-selector/species.service';
+import { EnumMap } from 'src/app/core/models/enum-map';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-species-selector',
   templateUrl: './species-selector.component.html',
-  styleUrls: ['./species-selector.component.scss']
+  styleUrls: ['./species-selector.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SpeciesSelectorComponent),
+      multi: true
+    }
+  ]
 })
-export class SpeciesSelectorComponent implements OnInit {
+export class SpeciesSelectorComponent implements OnInit, ControlValueAccessor {
 
-  allSpecies: Species[] = [];
-  available: Species[] = [];
-
-  @Input() selected: string[] = [];
-  @Output() selectedChange = new EventEmitter<string[]>();
+  species: EnumMap[] = [];
+  propagateChange = (_: any) => { };
 
   constructor(private speciesService: SpeciesService) { }
 
-  ngOnInit(): void {
+  selected: string;
 
+  ngOnInit(): void {
     this.speciesService
       .getAvailableSpecies()
-      .subscribe(value => {
-        this.allSpecies = value;
-        this.allSpecies.sort((a, b) => a.label.localeCompare(b.label));
-        this.updateAvailable();
-      });
+      .subscribe(value => this.species = value);
   }
 
-  add(species: string) {
-
-    this.selected.push(species);
-    this.updateAvailable();
+  select(value: string) {
+    this.selected = value;
+    this.propagateChange(this.selected);
   }
 
-  remove(species: string) {
-
-    this.selected.splice(this.selected.indexOf(species), 1);
-    this.updateAvailable();
+  writeValue(obj: any): void {
+    if (obj !== undefined) {
+      this.selected = obj ? obj : '';
+    }
   }
 
-  updateAvailable() {
-
-    this.available = this.allSpecies.filter(el => !this.selected.includes(el.value));
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn;
   }
 
-  getSpeciesLabel(value: string) {
-
-    return this.allSpecies.find(species => species.value === value)?.label ?? 'erro';
-  }
+  registerOnTouched(): void { }
 }

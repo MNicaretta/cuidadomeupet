@@ -1,0 +1,35 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Estado</th>
+      <th scope="col">Data</th>
+      <th scope="col">Valor</th>
+      <th scope="col">Informações</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let order of orders">
+      <tr>
+        <td class="align-middle">{{ order.stateLabel }}</td>
+        <td class="align-middle">{{ order.eventDate | date }}</td>
+        <td class="align-middle">{{ order.totalValue | currency:'BRL' }}</td>
+        <td class="align-middle" nowrap>
+          <i class="mx-1 btn fa fa-user" (click)="viewUser(order)"></i>
+          <i class="mx-1 btn fa fa-paw" (click)="viewPet(order)"></i>
+          <i class="mx-1 btn fa fa-map-marker" (click)="viewAddress(order)"></i>
+        </td>
+        <td nowrap>
+          <button (click)="approve(order)" *ngIf="!clientType && order.state === 'WAITING'" class="btn btn-primary mx-1">Aprovar</button>
+          <button (click)="reprove(order)" *ngIf="!clientType && order.state === 'WAITING'" class="btn btn-secondary mx-1">Rejeitar</button>
+          <button (click)="finish(order)" *ngIf="clientType && order.state === 'APPROVED'" class="btn btn-primary mx-1">Finalizar</button>
+        </td>
+      </tr>
+      <tr *ngIf="showEvaluationForm(order)">
+        <td colspan="5">
+          <app-evaluations-form [order]="order" (onFinish)="doFinish(order, $event)"></app-evaluations-form>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

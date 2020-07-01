@@ -1,19 +1,13 @@
 package com.cuidadomeupet.models;
 
-public enum Species {
+public enum Species implements Labelable {
 
-    DOG("Cachorro"),
-    CAT("Gato"),
-    BIRD("Ave"),
-    HORSE("Cavalo"),
-    RABBIT("Coelho"),
-    TURTLE("Tartaruga"),
-    FISH("Peixe"),
-    HAMSTER("Hamster");
-
-    private Species(String label) {
-        this.label = label;
-    }
-    
-    public String label;
+    DOG { public String label() { return "Cachorro"; } },
+    CAT { public String label() { return "Gato"; } },
+    BIRD { public String label() { return "Ave"; } },
+    HORSE { public String label() { return "Cavalo"; } },
+    RABBIT { public String label() { return "Coelho"; } },
+    TURTLE { public String label() { return "Tartaruga"; } },
+    FISH { public String label() { return "Peixe"; } },
+    HAMSTER { public String label() { return "Hamster"; } };
 }

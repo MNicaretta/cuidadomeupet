@@ -1,0 +1,39 @@
+<div class="container">
+
+  <div *ngIf="service" class="card mt-4">
+    <div class="card-body d-flex justify-content-between" style="height: 307px;">
+      <div class="d-flex flex-column">
+        <h3 class="card-title">{{ service.user.name }}</h3>
+        <h4>{{ service.price | currency:'BRL' }}</h4>
+        <h4>{{ service.typeLabel }}</h4>
+        <hr/>
+        <h5 class="card-title">Espécies:</h5>
+        <div class="d-flex flex-column flex-wrap overflow-auto">
+          <span *ngFor="let species of service.speciesLabels">{{ species }}</span>
+        </div>
+      </div>
+      <div class="w-50 d-flex flex-column justify-content-between">
+        <p class="card-text">{{ service.additionalInfo }}</p>
+        <form *ngIf="service.schedulable" [formGroup]="orderForm" (ngSubmit)="schedule()">
+          <div class="form-row">
+            <app-pets-selector class="col-md" [pets]="service.availablePets" formControlName="pet"></app-pets-selector>
+            <app-addresses-selector class="col-md" *ngIf="service.type === 'SITTING'" [addresses]="service.availableAddresses" formControlName="address"></app-addresses-selector>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block my-2" [disabled]="!(orderForm.valid && validDate())">Agendar</button>
+        </form>
+      </div>
+      <div>
+        <ngb-datepicker #d (dateSelect)="onDateSelect($event)" [dayTemplate]="t" outsideDays="hidden">
+        </ngb-datepicker>
+        <ng-template #t let-date let-focused="false">
+          <span class="custom-day"
+                [class.range]="isRange(date)"
+                [class.selected]="isSelected(date)">
+            {{ date.day }}
+          </span>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <app-evaluations-list [service]="service"></app-evaluations-list>
+</div>

@@ -1,0 +1,9 @@
+  <form class="" [formGroup]="evaluationForm">
+    <ngb-rating formControlName="grade" [max]="5"></ngb-rating>
+    <textarea class="form-control" formControlName="commentaries" placeholder="Comentários"></textarea>
+    <div class="form-row my-3">
+      <button class="btn btn-primary col-md mx-3" (click)="addEvaluation(true)" [disabled]="!evaluationForm.valid">Enviar avaliação</button>
+      <button class="btn btn-primary col-md mx-3" (click)="addEvaluation(false)">Sem avaliação</button>
+      <button class="btn btn-secondary col-md mx-3" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>

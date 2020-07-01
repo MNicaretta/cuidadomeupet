@@ -1,1 +1,21 @@
-<p>services-list works!</p>
+<button class="btn btn-primary my-4 btn-block" type="button" (click)="addService()">Cadastrar</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Tipo</th>
+      <th scope="col">Preço</th>
+      <th scope="col">Período</th>
+      <th scope="col">Usuário</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let service of services">
+      <td class="align-middle">{{ service.typeLabel }}</td>
+      <td class="align-middle">{{ service.price | currency:'BRL' }}</td>
+      <td class="align-middle">{{ service.startDate | date }} até {{ service.endDate | date }}</td>
+      <td class="align-middle">{{ service.user.name }}</td>
+      <td class="align-middle"><button class="btn btn-secondary" (click)="viewService(service)">Visualizar</button></td>
+    </tr>
+  </tbody>
+</table>

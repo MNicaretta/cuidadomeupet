@@ -2,9 +2,9 @@ package com.cuidadomeupet.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class BcryptUtil {
+public class BcryptUtils {
 
-    private BcryptUtil() {}
+    private BcryptUtils() {}
 
     public static String bcryptHash(String password) {
 

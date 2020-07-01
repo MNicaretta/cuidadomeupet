@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ServicesService } from '../services.service';
 import { Router } from '@angular/router';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+
+import { ServicesService } from '../services.service';
 import { Service } from '../../core/models/service';
-import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { Species } from 'src/app/core/models/species';
+import { ProfileService } from 'src/app/profile/profile.service';
+import { User } from 'src/app/core/models/user';
+import { dateRangeValidator } from 'src/app/shared/components/date-range-picker/date-range-validator.directive';
+import { AddressesService } from 'src/app/addresses/addresses.service';
+import { Address } from 'src/app/core/models/address';
 
 @Component({
   selector: 'app-services-form',
@@ -13,75 +18,83 @@ import { Species } from 'src/app/core/models/species';
 })
 export class ServicesFormComponent implements OnInit {
 
-  hoveredDate: NgbDate | null = null;
-
-  price: number;
-
-  additionalInfo: string;
-
-  fromDate: NgbDate;
-  toDate: NgbDate | null = null;
-
-  selectedSpecies: Species[] = [];
+  servicesForm: FormGroup;
+  currentUser: User;
+  availableAddresses: Address[];
 
   constructor(
     private servicesService: ServicesService,
+    private profileService: ProfileService,
+    private addressesService: AddressesService,
     private router: Router,
-    private calendar: NgbCalendar
-
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
 
-    this.fromDate = this.calendar.getToday();
-    this.toDate = this.calendar.getNext(this.calendar.getToday(), 'd', 10);
+    this.servicesForm = this.formBuilder.group({
+      type: [
+        '',
+        [Validators.required],
+      ],
+      price: [
+        0.0,
+        [Validators.required, Validators.min(1)],
+      ],
+      dateRange: [
+        {},
+        [Validators.required, dateRangeValidator],
+      ],
+      species: [
+        [],
+        [Validators.required, Validators.minLength(1)],
+      ],
+      additionalInfo: [
+        ''
+      ],
+      address: [
+        0
+      ]
+    });
 
+    this.profileService
+      .getCurrentUser()
+      .subscribe(user => this.currentUser = user);
+
+    this.addressesService
+      .getAvailableAddresses()
+      .subscribe(addresses => this.availableAddresses = addresses);
+  }
+
+  validAddress() {
+    return this.servicesForm.value.type === 'SITTING' || this.servicesForm.value.address > 0;
   }
 
   save(): void {
     const service: Service = {
-      price: this.price,
-      state: "ACTIVE",
-      type: "HOSTING",
-      additionalInfo: this.additionalInfo,
-      startDate: new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day),
-      endDate: new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day),
-      userId: 1,
-      species: this.selectedSpecies
+      type: this.servicesForm.value.type,
+      price: this.servicesForm.value.price,
+      state: 'ACTIVE',
+      startDate: this.servicesForm.value.dateRange.start,
+      endDate: this.servicesForm.value.dateRange.end,
+      userId: this.currentUser.id,
+      species: this.servicesForm.value.species,
+      additionalInfo: this.servicesForm.value.additionalInfo
     };
+
+    if (service.type === 'HOSTING') {
+      service.addressId = this.servicesForm.value.address;
+    }
 
     this.servicesService
       .addService(service)
       .subscribe(
         () => this.router.navigate(['services']),
-        err => console.error(err)
+        err => { console.error(err); alert('Ocorreu um erro') }
       );
   }
 
   cancel(): void {
     this.router.navigate(['services']);
-  }
-
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
-  }
-
-  isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-  }
-
-  isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
-  }
-
-  isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
   }
 }

@@ -1,0 +1,4 @@
+<select class="form-control" [value]="selected" (change)="select($event.target.value)">
+  <option value="0">Selecione um Endereço</option>
+  <option *ngFor="let address of addresses" [value]="address.id">{{ address.address }} CEP: {{ address.zip }}</option>
+</select>

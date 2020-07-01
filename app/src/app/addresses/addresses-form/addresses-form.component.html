@@ -1,0 +1,59 @@
+<button
+  class="btn btn-primary my-4 btn-block"
+  data-toggle="collapse"
+  href="#addressRegisterForm"
+  type="button"
+>
+  Adicionar endereço
+</button>
+<form
+  id="addressRegisterForm"
+  class="border border-light p-5 collapse"
+  [formGroup]="addressesForm"
+>
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <input
+        formControlName="address"
+        type="text"
+        class="form-control"
+        placeholder="Endereço"
+        required
+      />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-4">
+      <app-address-type-selector
+        formControlName="type"
+      ></app-address-type-selector>
+    </div>
+    <div class="col mb-4">
+      <input
+        [textMask]="{mask: zipMask}"
+        formControlName="zip"
+        type="text"
+        class="form-control"
+        placeholder="CEP"
+      />
+    </div>
+  </div>
+  <button
+    data-toggle="collapse"
+    href="#addressRegisterForm"
+    class="btn btn-primary my-4 btn-block"
+    (click)="addAddress()"
+    [disabled]="!addressesForm.valid"
+    type="button"
+  >
+    Cadastrar
+  </button>
+  <button
+    data-toggle="collapse"
+    href="#addressRegisterForm"
+    class="btn btn-secondary my-4 btn-block"
+    type="button"
+  >
+    Cancelar
+  </button>
+</form>

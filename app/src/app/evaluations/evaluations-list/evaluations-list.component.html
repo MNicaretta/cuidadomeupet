@@ -1,0 +1,18 @@
+<div class="card card-outline-secondary my-4">
+  <div class="card-header">
+    {{ getTitle() }}
+  </div>
+  <div *ngIf="evaluations?.length" class="card-body">
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let evaluation of evaluations">
+          <td>
+              <p>{{ evaluation.commentaries }}</p>
+              <small class="text-muted">{{ getGradeString(evaluation.grade) }} | {{ evaluation.order.pet.user.name }}</small>
+              <hr>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
