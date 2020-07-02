@@ -27,7 +27,7 @@ export class AboutComponent implements OnInit {
       {
         name: 'Marcelo Zerbieli Nicaretta',
         github: 'MNicaretta',
-        description: '(╯°□°）╯︵ ┻━┻'
+        description: 'Desenvolvedor de Software na Interact Solutions'
       },
       {
         name: 'Mauricio Ribeiro Xavier',
